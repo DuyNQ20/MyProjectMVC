@@ -49,10 +49,10 @@ namespace MyProjectMVC.Migrations
                         {
                             Id = 1,
                             Active = true,
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 569, DateTimeKind.Unspecified).AddTicks(8191), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(3181), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Delected = true,
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 569, DateTimeKind.Unspecified).AddTicks(8200), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(3190), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             ProductId = 1,
                             content = "Nội dung bình luận 1 cho iphone"
@@ -61,10 +61,10 @@ namespace MyProjectMVC.Migrations
                         {
                             Id = 2,
                             Active = true,
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 569, DateTimeKind.Unspecified).AddTicks(8234), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(3220), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Delected = false,
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 569, DateTimeKind.Unspecified).AddTicks(8234), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(3224), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             ProductId = 1,
                             content = "Nội dung bình luận 2 cho iphone"
@@ -82,6 +82,8 @@ namespace MyProjectMVC.Migrations
 
                     b.Property<string>("CreatedBy");
 
+                    b.Property<string>("Extention");
+
                     b.Property<DateTimeOffset>("ModifiedAt");
 
                     b.Property<string>("ModifiedBy");
@@ -97,6 +99,21 @@ namespace MyProjectMVC.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Image");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = false,
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(5452), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = "Quang Duy",
+                            Extention = ".png",
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(5461), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedBy = "Quang Duy",
+                            Name = "iphonex",
+                            ProductId = 1,
+                            Url = "images/smartphone/iphonex.jpg"
+                        });
                 });
 
             modelBuilder.Entity("MyProject.Models.Manufacturer", b =>
@@ -129,11 +146,11 @@ namespace MyProjectMVC.Migrations
                         {
                             Id = 1,
                             Active = true,
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 563, DateTimeKind.Unspecified).AddTicks(9708), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 465, DateTimeKind.Unspecified).AddTicks(668), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Info = "Thông tin apple",
                             Logo = "Logo Apple",
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 567, DateTimeKind.Unspecified).AddTicks(3273), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 467, DateTimeKind.Unspecified).AddTicks(8626), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             Name = "Apple"
                         },
@@ -141,11 +158,11 @@ namespace MyProjectMVC.Migrations
                         {
                             Id = 2,
                             Active = true,
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 567, DateTimeKind.Unspecified).AddTicks(5950), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 467, DateTimeKind.Unspecified).AddTicks(9635), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Info = "Thông tin samsung",
                             Logo = "Logo Samsung",
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 567, DateTimeKind.Unspecified).AddTicks(5971), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 467, DateTimeKind.Unspecified).AddTicks(9653), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             Name = "Samsung"
                         });
@@ -178,7 +195,13 @@ namespace MyProjectMVC.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<decimal>("OriginalPrice");
+
                     b.Property<decimal>("Price");
+
+                    b.Property<int>("ProductCategoryId");
+
+                    b.Property<decimal>("SalePrice");
 
                     b.Property<string>("Specifications");
 
@@ -190,6 +213,8 @@ namespace MyProjectMVC.Migrations
 
                     b.HasIndex("ManufacturerId");
 
+                    b.HasIndex("ProductCategoryId");
+
                     b.HasIndex("VendorId");
 
                     b.ToTable("Product");
@@ -199,17 +224,20 @@ namespace MyProjectMVC.Migrations
                         {
                             Id = 1,
                             Active = true,
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 569, DateTimeKind.Unspecified).AddTicks(4424), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(949), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Decriptions = "Cuối cùng iPhone X cũng đã ra mắt trong sự kiện diễn ra rạng sáng nay (13/9) theo giờ Việt Nam. </br>Đây là sản phẩm được Apple tung ra để kỷ niệm 10 năm iPhone.",
                             Deleted = false,
                             Inventory = 1000,
                             IsNew = true,
                             ManufacturerId = 1,
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 569, DateTimeKind.Unspecified).AddTicks(4436), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 470, DateTimeKind.Unspecified).AddTicks(966), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             Name = "IPhone X",
+                            OriginalPrice = 0m,
                             Price = 25000000m,
+                            ProductCategoryId = 1,
+                            SalePrice = 0m,
                             Specifications = "Nhà sản xuất:Apple </br>Hệ điều hành: iOS 11 </br>Kích thước:	143,6 x 70,9 x 7,7 mm </br>Trọng lượng: 174g </br>Ngày giới thiệu:	13 / 09 / 2017",
                             VendorId = 1,
                             View = 500
@@ -249,10 +277,10 @@ namespace MyProjectMVC.Migrations
                             Id = 1,
                             Active = true,
                             Address = "Địa chỉ apple",
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 568, DateTimeKind.Unspecified).AddTicks(3699), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 468, DateTimeKind.Unspecified).AddTicks(6581), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Email = "apple@gmail.com",
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 568, DateTimeKind.Unspecified).AddTicks(3712), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 468, DateTimeKind.Unspecified).AddTicks(6602), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             Name = "Nhà cung cấp Apple",
                             Phone = "0987654321"
@@ -262,13 +290,67 @@ namespace MyProjectMVC.Migrations
                             Id = 2,
                             Active = true,
                             Address = "Địa chỉ samsung",
-                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 568, DateTimeKind.Unspecified).AddTicks(3746), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 468, DateTimeKind.Unspecified).AddTicks(6654), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = "Quang Duy",
                             Email = "samsung@gmail.com",
-                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 14, 22, 27, 2, 568, DateTimeKind.Unspecified).AddTicks(3746), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 468, DateTimeKind.Unspecified).AddTicks(6658), new TimeSpan(0, 7, 0, 0, 0)),
                             ModifiedBy = "Quang Duy",
                             Name = "Nhà cung cấp Samsung",
                             Phone = "0123456789"
+                        });
+                });
+
+            modelBuilder.Entity("MyProjectMVC.Models.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<DateTimeOffset>("CreatedAt");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTimeOffset>("ModifiedAt");
+
+                    b.Property<string>("ModifiedBy");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 469, DateTimeKind.Unspecified).AddTicks(1751), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = "Quang Duy",
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 469, DateTimeKind.Unspecified).AddTicks(1764), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedBy = "Quang Duy",
+                            Name = "IPhone"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 469, DateTimeKind.Unspecified).AddTicks(1802), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = "Quang Duy",
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 469, DateTimeKind.Unspecified).AddTicks(1802), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedBy = "Quang Duy",
+                            Name = "Samsung"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            CreatedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 469, DateTimeKind.Unspecified).AddTicks(1807), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = "Quang Duy",
+                            ModifiedAt = new DateTimeOffset(new DateTime(2019, 2, 16, 17, 26, 4, 469, DateTimeKind.Unspecified).AddTicks(1811), new TimeSpan(0, 7, 0, 0, 0)),
+                            ModifiedBy = "Quang Duy",
+                            Name = "Oppo"
                         });
                 });
 
@@ -293,6 +375,11 @@ namespace MyProjectMVC.Migrations
                     b.HasOne("MyProject.Models.Manufacturer", "Manufacturer")
                         .WithMany("Products")
                         .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("MyProjectMVC.Models.ProductCategory", "ProductCategory")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MyProject.Models.Vendor", "Vendor")

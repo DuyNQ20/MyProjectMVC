@@ -1,6 +1,7 @@
 ﻿using MyProject.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using MyProjectMVC.Models;
 
 namespace CatalogService.Api.Data
 {
@@ -24,6 +25,7 @@ namespace CatalogService.Api.Data
             modelBuilder.Entity<Manufacturer>().ToTable("Manufacturer");
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Vendor>().ToTable("Vendor");
+            modelBuilder.Entity<ProductCategory>().ToTable("ProductCategory");
 
             modelBuilder.Entity<Manufacturer>().HasData(
                 new Manufacturer
@@ -81,6 +83,39 @@ namespace CatalogService.Api.Data
                 }
              );
 
+            modelBuilder.Entity<ProductCategory>().HasData(
+               new ProductCategory
+               {
+                   Id = 1,
+                   Name = "IPhone",                   
+                   Active = true,
+                   CreatedAt = DateTime.Now,
+                   CreatedBy = "Quang Duy",
+                   ModifiedAt = DateTime.Now,
+                   ModifiedBy = "Quang Duy"
+               },
+               new ProductCategory
+               {
+                   Id = 2,
+                   Name = "Samsung",
+                   Active = true,
+                   CreatedAt = DateTime.Now,
+                   CreatedBy = "Quang Duy",
+                   ModifiedAt = DateTime.Now,
+                   ModifiedBy = "Quang Duy"
+               },
+               new ProductCategory
+               {
+                   Id = 3,
+                   Name = "Oppo",
+                   Active = true,
+                   CreatedAt = DateTime.Now,
+                   CreatedBy = "Quang Duy",
+                   ModifiedAt = DateTime.Now,
+                   ModifiedBy = "Quang Duy"
+               }
+            );
+
             modelBuilder.Entity<Product>().HasData(
                new Product
                {
@@ -95,6 +130,7 @@ namespace CatalogService.Api.Data
                    Deleted = false,
                    ManufacturerId = 1,
                    VendorId = 1,
+                   ProductCategoryId = 1,
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -129,6 +165,21 @@ namespace CatalogService.Api.Data
                     ModifiedBy = "Quang Duy"
                 }
             );
+            modelBuilder.Entity<Image>().HasData(
+               new Image
+               {
+                   Id = 1,
+                   ProductId = 1,
+                   Url = "images/smartphone/iphonex.jpg",
+                   Name = "iphonex",
+                   Extention = ".png",
+                   CreatedAt = DateTime.Now,
+                   CreatedBy = "Quang Duy",
+                   ModifiedAt = DateTime.Now,
+                   ModifiedBy = "Quang Duy"
+               }
+            );
+            
         }
 
         public DbSet<Comment> Comments { get; set; }
@@ -136,5 +187,6 @@ namespace CatalogService.Api.Data
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<ProductCategory> ProductCategorys { get; set; }
     }
 }

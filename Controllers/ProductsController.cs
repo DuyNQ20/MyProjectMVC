@@ -22,7 +22,8 @@ namespace MyProjectMVC.Models
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Vendor);
+            var dataContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Vendor).Include(p=>p.Images).Include(x=>x.ProductCategory);
+            
             return View(await dataContext.ToListAsync());
         }
 
@@ -85,8 +86,8 @@ namespace MyProjectMVC.Models
             {
                 return NotFound();
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Id", product.ManufacturerId);
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id", product.VendorId);
+            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name", product.ProductCategoryId);
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", product.VendorId);
             return View(product);
         }
 

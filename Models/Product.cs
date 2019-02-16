@@ -1,4 +1,5 @@
 ﻿using CatalogService.Api.Data;
+using MyProjectMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,16 @@ namespace MyProject.Models
         public string Specifications { get; set; }
 
         public string Decriptions { get; set; }
+
+        /// <summary>
+        /// Giá gốc
+        /// </summary>
+        public decimal OriginalPrice { get; set; }
+
+        /// <summary>
+        /// Giá bán
+        /// </summary>
+        public decimal SalePrice { get; set; }
 
         /// <summary>
         /// Tồn kho
@@ -47,6 +58,10 @@ namespace MyProject.Models
         /// </summary>
         public int VendorId { get; set; }
         public virtual Vendor Vendor { get; set; }
+
+        public int ProductCategoryId { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
+
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Image> Images { get; set; }
     }

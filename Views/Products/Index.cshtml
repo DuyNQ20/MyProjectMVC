@@ -22,22 +22,22 @@
             <div class="col-md-12">
                 <div class="box-inn-sp">
                     <div class="inn-title">
-                        <h4>Listing All</h4>
-                        <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+                        <h4>Danh sách sản phẩm</h4>
+                        <p>You could do whatever you want to do !!!</p>
                         <a class="dropdown-button drop-down-meta" href="#" data-activates="dr-users"><i class="material-icons">more_vert</i></a>
                         <ul id="dr-users" class="dropdown-content">
                             <li>
-                                <a href="#!">Add New</a>
+                                <a href="#!">Thêm mới</a>
                             </li>
                             <li>
-                                <a href="#!">Edit</a>
+                                <a href="#!">Sửa</a>
                             </li>
                             <li>
-                                <a href="#!">Update</a>
+                                <a href="#!">Cập nhật</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#!"><i class="material-icons">delete</i>Delete</a>
+                                <a href="#!"><i class="material-icons">delete</i>Xóa</a>
                             </li>
                             <li>
                                 <a href="#!"><i class="material-icons">subject</i>View All</a>
@@ -52,49 +52,57 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Tên</th>
-                                        <th>Đơn giá</th>
-                                        <th>Ngày tạo</th>
-                                        <th>Người tạo</th>
-                                        <th>View</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Hình</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Loại sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">Xem</th>
+                                        <th class="text-center">Sửa</th>
+                                        <th class="text-center">Xóa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
                                     <tr>
-                                        <td>
+                                        <td class="text-center">
                                             <span class="list-img">@item.Id</span>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <span class="list-img">
-                                                <img src="~/images/smartphone/iphonex.png" />
+                                                <img src="~/@Url.Content(item.Images.FirstOrDefault(x=> x.Id == item.Id).Url)" />
                                             </span>
                                         </td>
                                         <td>
                                             <span class="list-img">@Html.DisplayFor(modelItem => item.Name)</span>
                                         </td>
                                         <td>
-                                            <span class="list-img">@Html.DisplayFor(modelItem => item.Price)</span>
+                                            <span class="list-img">@Html.DisplayFor(modelItem => item.ProductCategory.Name)</span>
                                         </td>
                                         <td>
-                                            <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                            <span class="list-img">@Html.DisplayFor(modelItem => item.Inventory)</span>
                                         </td>
-                                        <td>
-                                            <span class="list-img">@Html.DisplayFor(modelItem => item.CreatedBy)</span>
+                                        <td class="text-center">
+                                            <a href="listing-edit.html"> <i class="@(@item.Active ? "fa fa-check-circle" : "fa fa-ban red")"></i></a>
+
                                         </td>
-                                        <td>
+                                        @*<td>
+            <span class="list-img">@item.Price.ToString("#,### VNĐ")</span>
+        </td>
+        <td>
+            <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+        </td>*@
+
+                                        <td class="text-center">
                                             <a href="listing-edit.html"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                         </td>
-                                        <td>
-                                            <a href="listing-edit.html"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Edit","Products",new { id = item.Id})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         </td>
-                                        <td>
-                                            <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <td class="text-center">
+                                            <a href="#"><i class="fa fa-trash-alt red"></i></a>
                                         </td>
                                     </tr>
                                     }

@@ -1,0 +1,26 @@
+﻿td {
+    vertical-align: inherit !important;
+}
+
+.list-img img {
+    width: 30px;
+    height: 40px;
+    border-radius: inherit;
+}
+
+.table-desi a i {
+    margin-right: 0px;
+}
+
+/*Cho border sp ngắn lại*/
+.row .col.s8 input {
+    width: 95%;
+}
+
+.row .col.s8{
+    width: 70%;
+}
+
+.row .col.s4 {
+    width: 30%;
+}
