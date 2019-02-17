@@ -31,11 +31,11 @@
                         <form>
                             <div class="row">
                                 <div class="input-field col s12 s8 tensp">
-                                    <input id="list-title" type="text" class="validate" value="@Html.DisplayFor(model => model.Name)" >
+                                    <input id="product-name" type="text" class="validate" value="@Html.DisplayFor(model => model.Name)" >
                                     <label for="list-title">Tên sản phẩm</label>
                                 </div>
                                 <div class="input-field col s12 s4">
-                                    <input id="list-name" type="text" class="validate">
+                                    <input id="originalprice" type="text" class="validate" value="@Model.OriginalPrice.ToString("#,##")">
                                     <label for="list-name">Giá gốc</label>
                                 </div>
                             </div>
@@ -47,50 +47,31 @@
                                     </div>
                                 </div>
                                 <div class="input-field col s4">
-                                    <input id="list-name" type="text" class="validate">
+                                    <input id="saleprice" type="text" class="validate" value="@Model.SalePrice.ToString("#,##")">
                                     <label for="list-name">Giá bán</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s8">
                                     <div class="input-field col s5" style="padding: 0">
-                                        <select>
-                                            <option value="1" selected>Hotels</option>
-                                            <option value="2">Educations</option>
-                                            <option value="3">Medical</option>
-                                            <option value="3">Health</option>
-                                            <option value="3">Fitness</option>
-                                            <option value="3">Tution</option>
-                                            <option value="3">Software</option>
-                                            <option value="3">Wedding</option>
-                                            <option value="3">Party</option>
-                                            <option value="3">Spa/Club</option>
-                                        </select>
-                                        <label style="left: 0">Nhà sản xuất</label>
+                                        @Html.DropDownList("VendorId")
+                                        <label style="left: 0">Nhà cung cấp</label>
                                     </div>
                                 </div>
                                 <div class="input-field col s4">
-                                    <input id="list-name" type="text" class="validate">
+                                    <input id="inventory" type="text" class="validate" value="@Html.DisplayFor(model => model.Inventory)">
                                     <label for="list-name">Số lượng</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s8" style="left: 1px;">
                                     <span>Mô tả</span>
-                                    <textarea name="product-description" placeholder="Mô tả" id="list-name" type="text" class="validate"></textarea>
+                                    <textarea name="product-description" id="list-name" type="text" class="validate">@Html.DisplayFor(model => model.Decriptions)</textarea>
                                 </div>
                                 <div class="input-field col s4">
                                     <select>
-                                        <option value="1" selected>Hotels</option>
-                                        <option value="2">Educations</option>
-                                        <option value="3">Medical</option>
-                                        <option value="3">Health</option>
-                                        <option value="3">Fitness</option>
-                                        <option value="3">Tution</option>
-                                        <option value="3">Software</option>
-                                        <option value="3">Wedding</option>
-                                        <option value="3">Party</option>
-                                        <option value="3">Spa/Club</option>
+                                        <option value="1" @(Model.Active?"selected":"") >Xuất bản</option>
+                                        <option value="2" @(Model.Active==false?"selected":"")>Chưa xuất bản</option>
                                     </select>
                                     <label>Trạng thái</label>
                                 </div>
@@ -98,7 +79,10 @@
                            
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="submit" class="waves-effect waves-light btn-large" value="Submit">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-save waves-effect waves-light"> Lưu[Cập nhật]</i>
+                                    </button>
+                                    @*<input type="submit" class="waves-effect waves-light btn-large " value="Submit">*@
                                 </div>
                             </div>
                         </form>

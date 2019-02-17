@@ -10,9 +10,6 @@ namespace MyProject.Models
     public class Product : BaseModel
     {
         public string Name { get; set; }
-
-        public decimal Price { get; set; }
-
         /// <summary>
         /// thông số kỹ thuật
         /// </summary>

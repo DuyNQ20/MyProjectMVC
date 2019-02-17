@@ -24,3 +24,14 @@
 .row .col.s4 {
     width: 30%;
 }
+
+/*Cho btn lưu nhỏ lại*/
+.btn.btn-primary.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.btn.btn-primary.btn-sm i.fa {
+    font-size: 12px;
+}

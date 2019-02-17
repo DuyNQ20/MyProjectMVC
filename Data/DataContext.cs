@@ -58,7 +58,7 @@ namespace CatalogService.Api.Data
                 new Vendor
                 {
                     Id = 1,
-                    Name = "Nhà cung cấp Apple",
+                    Name = "Apple",
                     Address = "Địa chỉ apple",
                     Email = "apple@gmail.com",
                     Phone = "0987654321",
@@ -71,7 +71,7 @@ namespace CatalogService.Api.Data
                 new Vendor
                 {
                     Id = 2,
-                    Name = "Nhà cung cấp Samsung",
+                    Name = "Samsung",
                     Address = "Địa chỉ samsung",
                     Email = "samsung@gmail.com",
                     Phone = "0123456789",
@@ -121,7 +121,8 @@ namespace CatalogService.Api.Data
                {
                    Id = 1,
                    Name = "IPhone X",
-                   Price = 25000000,
+                   OriginalPrice = 20000000,
+                   SalePrice = 25000000,
                    Specifications = "Nhà sản xuất:Apple </br>Hệ điều hành: iOS 11 </br>Kích thước:	143,6 x 70,9 x 7,7 mm </br>Trọng lượng: 174g </br>Ngày giới thiệu:	13 / 09 / 2017",
                    Decriptions = "Cuối cùng iPhone X cũng đã ra mắt trong sự kiện diễn ra rạng sáng nay (13/9) theo giờ Việt Nam. </br>Đây là sản phẩm được Apple tung ra để kỷ niệm 10 năm iPhone.",
                    Inventory = 1000,
