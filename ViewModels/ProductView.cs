@@ -33,21 +33,8 @@ namespace MyProject.ViewModels
 
         // Hàng mới
         public bool IsNew { get; set; }
-
-        /// <summary>
-        /// Lượt xem
-        /// </summary>
-        public int View { get; set; }
-
-
-
-        public bool Deleted { get; set; }
-
-        /// <summary>
-        /// Nhà sản xuất
-        /// </summary>
-        public int ManufacturerId { get; set; }
-
+        
+        
         /// <summary>
         /// Nhà cung cấp
         /// </summary>

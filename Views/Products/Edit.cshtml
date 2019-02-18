@@ -31,77 +31,103 @@
                         <form asp-action="Edit">
                             <input type="hidden" asp-for="Id" />
 
-                            <div class="row">
-                                <div class="input-field col s12 s8 tensp">
-                                    <input id="product-name" type="text" class="validate" asp-for="Name">
-                                    <label>Tên sản phẩm</label>
-                                </div>
-                                <div class="input-field col s12 s4">
-                                    <input id="originalprice" type="text" class="validate" asp-for="OriginalPrice" value="@Model.OriginalPrice.ToString("#,##")">
-                                    <label for="list-name">Giá gốc</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s8">
-                                    <div class="input-field col s5" style="padding: 0">
-                                        @Html.DropDownList("ProductCategoryId")
-                                        <label style="left: 0">Loại sản phẩm</label>
+                            @*Bên trái*@
+                            <div class="col s8">
+                                <div class="row">
+                                    <div class="input-field col s12 tensp">
+                                        <input id="product-name" type="text" class="validate" asp-for="Name">
+                                        <label>Tên sản phẩm</label>
                                     </div>
                                 </div>
-                                <div class="input-field col s4">
-                                    <input id="saleprice" type="text" class="validate" asp-for="SalePrice" value="@Model.SalePrice.ToString("#,##")">
-                                    <label for="list-name">Giá bán</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s8">
-                                    <div class="input-field col s5" style="padding: 0">
-                                        @Html.DropDownList("VendorId")
-                                        <label style="left: 0">Nhà cung cấp</label>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <div class="input-field col s5" style="padding: 0">
+                                            @Html.DropDownList("ProductCategoryId")
+                                            <label style="left: 0">Loại sản phẩm</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="input-field col s4">
-                                    <input id="inventory" type="text" class="validate" asp-for="Inventory" value="@Model.Inventory.ToString("#,##")">
-                                    <label for="list-name">Số lượng</label>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <div class="input-field col s5" style="padding: 0">
+                                            @Html.DropDownList("VendorId")
+                                            <label style="left: 0">Nhà cung cấp</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <span>Cấu hình</span>
+                                        <textarea id="specifications" type="text" asp-for="Specifications"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <span>Mô tả</span>
+                                        <textarea name="product-description" id="list-name" type="text" asp-for="Decriptions"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s8" style="left: 1px;">
-                                    <span>Cấu hình</span>
-                                    <textarea id="specifications" type="text" asp-for="Specifications"></textarea>
+
+                            <div class="col s4">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="originalprice" type="text" class="validate" asp-for="OriginalPrice" value="@Model.OriginalPrice.ToString("#,##")">
+                                        <label for="list-name">Giá gốc</label>
+                                    </div>
                                 </div>
-                                <div class="input-field col s4">
-                                    <select>
-                                        <option asp-for="Active" value="1" @(Model.Active ? "selected" : "" )>Xuất bản</option>
-                                        <option asp-for="Active" value="2" @(Model.Active= =false ? "selected" : "" )>Chưa xuất bản</option>
-                                    </select>
-                                    <label>Trạng thái</label>
+                                <div class="row">
+
+                                    <div class="input-field col s12">
+                                        <input id="saleprice" type="text" class="validate" asp-for="SalePrice" value="@Model.SalePrice.ToString("#,##")">
+                                        <label for="list-name">Giá bán</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="input-field col s12">
+                                        <input id="inventory" type="text" class="validate" asp-for="Inventory" value="@Model.Inventory.ToString("#,##")">
+                                        <label for="list-name">Số lượng</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select>
+                                            <option asp-for="Active" value="1" @(Model.Active ? "selected" : "" )>Mới</option>
+                                            <option asp-for="Active" value="2" @(Model.Active= =false ? "selected" : "" )>Không mới</option>
+                                        </select>
+                                        <label>Hàng mới</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select>
+                                            <option asp-for="Active" value="1" @(Model.Active ? "selected" : "" )>Xuất bản</option>
+                                            <option asp-for="Active" value="2" @(Model.Active= =false ? "selected" : "" )>Chưa xuất bản</option>
+                                        </select>
+                                        <label>Trạng thái</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s8" style="left: 1px;">
-                                    <span>Mô tả</span>
-                                    <textarea name="product-description" id="list-name" type="text" asp-for="Decriptions"></textarea>
-                                </div>
-                                <div class="input-field col s4">
-                                    <select>
-                                        <option asp-for="Active" value="1" @(Model.Active ? "selected" : "" )>Xuất bản</option>
-                                        <option asp-for="Active" value="2" @(Model.Active= =false ? "selected" : "" )>Chưa xuất bản</option>
-                                    </select>
-                                    <label>Trạng thái</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-save"> </i> Lưu[Cập nhật]
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-times-circle "></i> Thoát
-                                    </button>
-                                    @*<input type="submit" class="waves-effect waves-light btn-large " value="Submit">*@
+                            <div class="col s8">
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-save"> </i> Lưu[Cập nhật]
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-times-circle "></i> Thoát
+                                        </button>
+                                        @*<input type="submit" class="waves-effect waves-light btn-large " value="Submit">*@
+                                    </div>
                                 </div>
                             </div>
+                           
+                            <div style="clear: both"></div>
                         </form>
                     </div>
                 </div>

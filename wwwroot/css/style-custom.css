@@ -15,17 +15,11 @@
 }
 
 /*Cho border sp ngắn lại*/
-.row .col.s8 input {
-    width: 95%;
+.row .col.s8 {
+    box-sizing: border-box;
+    padding-right: 5%;
 }
 
-.row .col.s8{
-    width: 70%;
-}
-
-.row .col.s4 {
-    width: 30%;
-}
 
 /*Cho btn lưu nhỏ lại*/
 .btn.btn-primary.btn-sm {
