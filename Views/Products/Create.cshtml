@@ -5,7 +5,7 @@
     Layout = "~/Views/Layout/AdminLayout.cshtml";
 }
 
-<h2>Create</h2>
+@*<h2>Create</h2>
 
 <h4>Product</h4>
 <hr />
@@ -101,5 +101,97 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>*@
+
+<div class="sb2-2">
+    <div class="sb2-2-2">
+        <ul>
+            <li>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            </li>
+            <li class="active-bre">
+                <a href="#"> Edit Listing</a>
+            </li>
+        </ul>
+    </div>
+    <div class="sb2-2-add-blog sb2-2-1">
+        <h2>Cập nhật sản phẩm</h2>
+        <p></p>
+        <p></p>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <div class="box-inn-sp">
+                    @*<div class="inn-title">
+                            <h4>Listing Information</h4>
+                            <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+                        </div>*@
+                    <div class="bor">
+                        <form asp-action="Create">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="row">
+                                <div class="input-field col s12 s8 tensp">
+                                    <input asp-for="Name" id="product-name" type="text" class="validate" value="">
+                                    <label for="list-title">Tên sản phẩm</label>
+                                </div>
+                                <div class="input-field col s12 s4">
+                                    <input id="originalprice" type="text" class="validate" value="">
+                                    <label for="list-name">Giá gốc</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s8">
+                                    <div class="input-field col s5" style="padding: 0">
+                                        @Html.DropDownList("ProductCategoryId")
+                                        <label style="left: 0">Loại sản phẩm</label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="saleprice" type="text" class="validate" value="">
+                                    <label for="list-name">Giá bán</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s8">
+                                    <div class="input-field col s5" style="padding: 0">
+                                        @Html.DropDownList("VendorId")
+                                        <label style="left: 0">Nhà cung cấp</label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="inventory" type="text" class="validate" value="">
+                                    <label for="list-name">Số lượng</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s8" style="left: 1px;">
+                                    <span>Mô tả</span>
+                                    <textarea name="product-description" id="list-name" type="text" class="validate"></textarea>
+                                </div>
+                                <div class="input-field col s4">
+                                    <select>
+                                        <option value="1">Xuất bản</option>
+                                        <option value="2">Chưa xuất bản</option>
+                                    </select>
+                                    <label>Trạng thái</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button type="submit" value="Create" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-save"> </i> Lưu[Cập nhật]
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-times-circle "></i> Thoát
+                                    </button>
+                                    @*<input type="submit" class="waves-effect waves-light btn-large " value="Submit">*@
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

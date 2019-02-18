@@ -27,7 +27,7 @@
                         <a class="dropdown-button drop-down-meta" href="#" data-activates="dr-users"><i class="material-icons">more_vert</i></a>
                         <ul id="dr-users" class="dropdown-content">
                             <li>
-                                <a href="#!">Thêm mới</a>
+                                <a asp-action="Create">Thêm mới</a>
                             </li>
                             <li>
                                 <a href="#!">Sửa</a>
@@ -58,7 +58,7 @@
                                         <th>Loại sản phẩm</th>
                                         <th>Số lượng</th>
                                         <th class="text-center">Trạng thái</th>
-                                        <th class="text-center">Xem</th>
+                                        <th class="text-center">Nhập hàng</th>
                                         <th class="text-center">Sửa</th>
                                         <th class="text-center">Xóa</th>
                                     </tr>
@@ -96,13 +96,13 @@
         </td>*@
 
                                         <td class="text-center">
-                                            <a href="listing-edit.html"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a href="listing-edit.html"><i class="fa fa-plus-circle"> Nhập hàng</i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="@Url.Action("Edit","Products",new { id = item.Id})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"> Sửa</i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="#"><i class="fa fa-trash-alt red"></i></a>
+                                            <a href="#"><i class="fa fa-trash-o red"> Xóa</i></a>
                                         </td>
                                     </tr>
                                     }

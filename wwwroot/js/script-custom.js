@@ -22,14 +22,7 @@ $(document).ready(function () {
 
 // Chuyển tiền sang dạng dấu phảy
 
-    function convertNumber(id) {
-        var so = $(id).val();
-        so = formatCurrency(so.replace(/,/g, "")); // chuyển từ 20,000 => 20000
-        so = so.substring(0, so.length - 3); // Bỏ đuôi .00
-        $(id).val(so);
-
-       
-    }
+    
 
     $('#originalprice').keyup(function (e) {
         convertNumber(this);
@@ -40,6 +33,19 @@ $(document).ready(function () {
     $('#inventory').keyup(function (e) {
         convertNumber(this);
     });
+
+    // Hàm chuyển thành dấu phẩy khi nhấn xuống
+    function convertNumber(id) {
+        var so = $(id).val();
+        so = convertToNumber(so);
+        so = so.substring(0, so.length - 3); // Bỏ đuôi .00
+        $(id).val(so);
+    }
+
+    // Chuyển ngược lại từ 20,000 => 20000
+    function convertToNumber(numberString) {
+        return formatCurrency(numberString.replace(/,/g, ""));
+    }
 
     // Chuyển tiền sang dạng có phẩy (20,000.00)
     function formatCurrency(total) {

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
 using MyProject.Models;
+using MyProject.ViewModels;
+using MyProject.Mapper;
 
 namespace MyProjectMVC.Models
 {
+
     public class ProductsController : Controller
     {
         private readonly DataContext _context;
@@ -22,8 +25,8 @@ namespace MyProjectMVC.Models
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Vendor).Include(p=>p.Images).Include(x=>x.ProductCategory);
-            
+            var dataContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Vendor).Include(p => p.Images).Include(x => x.ProductCategory);
+
             return View(await dataContext.ToListAsync());
         }
 
@@ -50,8 +53,8 @@ namespace MyProjectMVC.Models
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Id");
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id");
+            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             return View();
         }
 
@@ -60,7 +63,7 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Price,Specifications,Decriptions,Inventory,IsNew,View,Deleted,ManufacturerId,VendorId,Id,CreatedBy,ModifiedBy,Active,CreatedAt,ModifiedAt")] Product product)
+        public async Task<IActionResult> Create([Bind("Name")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -96,36 +99,17 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Price,Specifications,Decriptions,Inventory,IsNew,View,Deleted,ManufacturerId,VendorId,Id,CreatedBy,ModifiedBy,Active,CreatedAt,ModifiedAt")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ProductCategoryId,VendorId,Decriptions,OriginalPrice,SalePrice,Inventory, Active")] ProductView productView)
         {
-            if (id != product.Id)
+            var product = _context.Products.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Id", product.ManufacturerId);
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id", product.VendorId);
-            return View(product);
+            product.ProductMap(productView);
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Delete/5
