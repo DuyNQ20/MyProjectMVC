@@ -113,6 +113,21 @@ namespace MyProjectMVC.Models
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateStatus(int? id)
+        {
+            var product = _context.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            product.StatusId = product.StatusId == 1 ? 2 : 1;
+            
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

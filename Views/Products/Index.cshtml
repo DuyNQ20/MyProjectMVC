@@ -85,7 +85,7 @@
                                             <span class="list-img">@Html.DisplayFor(modelItem => item.Inventory)</span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="listing-edit.html"> <i class="@(@item.Active ? "fa fa-check-circle" : "fa fa-ban red")"></i></a>
+                                            <a asp-action="UpdateStatus" asp-route-id="@item.Id"> <i class="@(@item.StatusId == 1 ? "fa fa-check-circle" : "fa fa-ban red")"></i></a>
 
                                         </td>
                                         @*<td>
