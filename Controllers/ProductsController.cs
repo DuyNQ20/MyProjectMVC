@@ -91,6 +91,7 @@ namespace MyProjectMVC.Models
             }
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name", product.ProductCategoryId);
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", product.VendorId);
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name", product.StatusId);
             return View(product);
         }
 
@@ -99,7 +100,7 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ProductCategoryId,VendorId,Decriptions,OriginalPrice,SalePrice,Inventory, Active")] ProductView productView)
+        public async Task<IActionResult> Edit(int id, ProductView productView)
         {
             var product = _context.Products.Find(id);
             if (product == null)

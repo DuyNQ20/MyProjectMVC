@@ -42,6 +42,6 @@ namespace MyProject.ViewModels
 
         public int ProductCategoryId { get; set; }
 
-        public bool Active;
+        public int StatusId { get; set; }
     }
 }

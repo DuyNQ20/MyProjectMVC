@@ -35,13 +35,10 @@ namespace MyProject.Mapper
             destination.Decriptions = source.Decriptions;
             destination.Inventory = source.Inventory;
             destination.IsNew = source.IsNew;
-            destination.View = source.View;
-            destination.Deleted = source.Deleted;
-            destination.ManufacturerId = source.ManufacturerId;
             destination.VendorId = source.VendorId;
             destination.ProductCategoryId = source.ProductCategoryId;
             destination.ModifiedAt = now;
-            destination.Active = source.Active;
+            destination.StatusId = source.StatusId;
         }
 
         public static void VendorMap(this Vendor destination, VendorView source)

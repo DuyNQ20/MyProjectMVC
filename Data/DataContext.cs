@@ -26,6 +26,7 @@ namespace CatalogService.Api.Data
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Vendor>().ToTable("Vendor");
             modelBuilder.Entity<ProductCategory>().ToTable("ProductCategory");
+            modelBuilder.Entity<Status>().ToTable("Status");
 
             modelBuilder.Entity<Manufacturer>().HasData(
                 new Manufacturer
@@ -115,7 +116,28 @@ namespace CatalogService.Api.Data
                    ModifiedBy = "Quang Duy"
                }
             );
-
+            modelBuilder.Entity<Status>().HasData(
+              new Status
+              {
+                  Id = 1,
+                  Name = "Xuất bản",
+                  Active = true,
+                  CreatedAt = DateTime.Now,
+                  CreatedBy = "Quang Duy",
+                  ModifiedAt = DateTime.Now,
+                  ModifiedBy = "Quang Duy"
+              },
+              new Status
+              {
+                  Id = 2,
+                  Name = "Chưa xuất bản",
+                  Active = true,
+                  CreatedAt = DateTime.Now,
+                  CreatedBy = "Quang Duy",
+                  ModifiedAt = DateTime.Now,
+                  ModifiedBy = "Quang Duy"
+              }
+           );
             modelBuilder.Entity<Product>().HasData(
                new Product
                {
@@ -132,6 +154,7 @@ namespace CatalogService.Api.Data
                    ManufacturerId = 1,
                    VendorId = 1,
                    ProductCategoryId = 1,
+                   StatusId = 1,
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -189,5 +212,6 @@ namespace CatalogService.Api.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<ProductCategory> ProductCategorys { get; set; }
+        public DbSet<Status> Statuses { get; set; }
     }
 }

@@ -40,7 +40,6 @@ namespace MyProject.Models
         /// </summary>
         public int View { get; set; }
 
-        
 
         public bool Deleted { get; set; }
 
@@ -58,6 +57,10 @@ namespace MyProject.Models
 
         public int ProductCategoryId { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
+
+
+        public int StatusId { get; set; }
+        public virtual Status Status { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
         public virtual List<Image> Images { get; set; }

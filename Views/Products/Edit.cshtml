@@ -60,17 +60,12 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <span>Cấu hình</span>
+                                        <label>Cấu hình</label><br />
                                         <textarea id="specifications" type="text" asp-for="Specifications"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <span>Mô tả</span>
-                                        <textarea name="product-description" id="list-name" type="text" asp-for="Decriptions"></textarea>
-                                    </div>
-                                </div>
+                                
                             </div>
 
                             <div class="col s4">
@@ -90,26 +85,30 @@
                                 <div class="row">
 
                                     <div class="input-field col s12">
-                                        <input id="inventory" type="text" class="validate" asp-for="Inventory" value="@Model.Inventory.ToString("#,##")">
+                                        <input id="saleprice" type="number" class="validate" asp-for="Inventory">
                                         <label for="list-name">Số lượng</label>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <select>
-                                            <option asp-for="Active" value="1" @(Model.Active ? "selected" : "" )>Mới</option>
-                                            <option asp-for="Active" value="2" @(Model.Active= =false ? "selected" : "" )>Không mới</option>
-                                        </select>
-                                        <label>Hàng mới</label>
+                                        @Html.DropDownList("StatusId")
+                                        <label>Trạng thái</label>
                                     </div>
                                 </div>
+                                <div class="row test">
+                                    <div class="col s12">
+                                        <input type="checkbox" class="filled-in" id="filled-in-box-3" asp-for="IsNew" />
+                                        <label for="filled-in-box-3">Hàng mới</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12">
                                 <div class="row">
+                                    <br />
                                     <div class="input-field col s12">
-                                        <select>
-                                            <option asp-for="Active" value="1" @(Model.Active ? "selected" : "" )>Xuất bản</option>
-                                            <option asp-for="Active" value="2" @(Model.Active= =false ? "selected" : "" )>Chưa xuất bản</option>
-                                        </select>
-                                        <label>Trạng thái</label>
+                                        <label>Mô tả</label> <br />
+                                        <textarea id="decriptions" type="text" asp-for="Decriptions"></textarea>
                                     </div>
                                 </div>
                             </div>
