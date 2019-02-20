@@ -1,5 +1,4 @@
-﻿using MyProject.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using MyProjectMVC.Models;
 
@@ -22,14 +21,14 @@ namespace CatalogService.Api.Data
         {
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<Image>().ToTable("Image");
-            modelBuilder.Entity<Manufacturer>().ToTable("Manufacturer");
+            modelBuilder.Entity<Supplier>().ToTable("Supplier");
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Vendor>().ToTable("Vendor");
             modelBuilder.Entity<ProductCategory>().ToTable("ProductCategory");
             modelBuilder.Entity<Status>().ToTable("Status");
 
-            modelBuilder.Entity<Manufacturer>().HasData(
-                new Manufacturer
+            modelBuilder.Entity<Supplier>().HasData(
+                new Supplier
                 {
                     Id = 1,
                     Name = "Apple",
@@ -41,7 +40,7 @@ namespace CatalogService.Api.Data
                     ModifiedAt = DateTime.Now,
                     ModifiedBy = "Quang Duy"
                 },
-                new Manufacturer
+                new Supplier
                 {
                     Id = 2,
                     Name = "Samsung",
@@ -59,9 +58,9 @@ namespace CatalogService.Api.Data
                 new Vendor
                 {
                     Id = 1,
-                    Name = "Apple",
-                    Address = "Địa chỉ apple",
-                    Email = "apple@gmail.com",
+                    Name = "Hoàng Hà Mobile",
+                    Address = "Địa chỉ Hà Nội",
+                    Email = "hoangha@gmail.com",
                     Phone = "0987654321",
                     Active = true,
                     CreatedAt = DateTime.Now,
@@ -72,9 +71,9 @@ namespace CatalogService.Api.Data
                 new Vendor
                 {
                     Id = 2,
-                    Name = "Samsung",
-                    Address = "Địa chỉ samsung",
-                    Email = "samsung@gmail.com",
+                    Name = "CellPhone S",
+                    Address = "Địa chỉ Cầu giấy",
+                    Email = "Cellphones@gmail.com",
                     Phone = "0123456789",
                     Active = true,
                     CreatedAt = DateTime.Now,
@@ -88,7 +87,7 @@ namespace CatalogService.Api.Data
                new ProductCategory
                {
                    Id = 1,
-                   Name = "IPhone",                   
+                   Name = "Điện thoại",                   
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -98,7 +97,7 @@ namespace CatalogService.Api.Data
                new ProductCategory
                {
                    Id = 2,
-                   Name = "Samsung",
+                   Name = "Ipad",
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -108,7 +107,7 @@ namespace CatalogService.Api.Data
                new ProductCategory
                {
                    Id = 3,
-                   Name = "Oppo",
+                   Name = "Laptop",
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -150,11 +149,10 @@ namespace CatalogService.Api.Data
                    Inventory = 1000,
                    IsNew = true,
                    View = 500,
-                   Deleted = false,
-                   ManufacturerId = 1,
                    VendorId = 1,
                    ProductCategoryId = 1,
                    StatusId = 1,
+                   SupplierId = 1,
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -208,7 +206,7 @@ namespace CatalogService.Api.Data
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Image> Images { get; set; }
-        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<ProductCategory> ProductCategorys { get; set; }

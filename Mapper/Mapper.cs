@@ -1,15 +1,15 @@
-﻿using MyProject.Models;
-using MyProject.ViewModels;
+﻿using MyProjectMVC.ViewModels;
+using MyProjectMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace MyProject.Mapper
+namespace MyProjectMVC.Mapper
 {
     public static class Mapper
     {
-        public static void ProductMap(this Product destination, ProductView source)
+
+        public static void Map(this Product destination, ProductView source)
         {
             if (source == null)
             {
@@ -36,12 +36,34 @@ namespace MyProject.Mapper
             destination.Inventory = source.Inventory;
             destination.IsNew = source.IsNew;
             destination.VendorId = source.VendorId;
+            destination.SupplierId = source.SupplierId;
             destination.ProductCategoryId = source.ProductCategoryId;
             destination.ModifiedAt = now;
             destination.StatusId = source.StatusId;
         }
 
-        public static void VendorMap(this Vendor destination, VendorView source)
+        public static void SaveMap(this Product destination, ProductView source)
+        {
+            
+
+            var now = DateTime.UtcNow;
+
+            destination.Name = source.Name;
+            destination.OriginalPrice = source.OriginalPrice;
+            destination.SalePrice = source.SalePrice;
+            destination.Specifications = source.Specifications;
+            destination.Decriptions = source.Decriptions;
+            destination.Inventory = source.Inventory;
+            destination.IsNew = source.IsNew;
+            destination.VendorId = source.VendorId;
+            destination.SupplierId = source.SupplierId;
+            destination.ProductCategoryId = source.ProductCategoryId;
+            destination.ModifiedAt = now;
+            destination.CreatedAt = now;
+            destination.StatusId = source.StatusId;
+        }
+
+        public static void Map(this Vendor destination, VendorView source)
         {
             if (source == null)
             {
@@ -68,7 +90,7 @@ namespace MyProject.Mapper
             destination.Active = source.Active;
         }
 
-        public static void ManufacturerMap(this Manufacturer destination, ManufacturerView source)
+        public static void Map(this Supplier destination, SupplierView source)
         {
             if (source == null)
             {

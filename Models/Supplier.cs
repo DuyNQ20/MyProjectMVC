@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyProject.ViewModels
+namespace MyProjectMVC.Models
 {
-    public class ManufacturerView
+    public class Supplier:BaseModel
     {
         public string Name { get; set; }
 
@@ -13,6 +13,6 @@ namespace MyProject.ViewModels
 
         public string Logo { get; set; }
 
-        public bool Active { get; set; }
+        public virtual List<ProductCategory> ProductCategories { get; set; }
     }
 }

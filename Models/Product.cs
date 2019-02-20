@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyProject.Models
+namespace MyProjectMVC.Models
 {
     public class Product : BaseModel
     {
@@ -39,21 +39,19 @@ namespace MyProject.Models
         /// Lượt xem
         /// </summary>
         public int View { get; set; }
-
-
-        public bool Deleted { get; set; }
-
-        /// <summary>
-        /// Nhà sản xuất
-        /// </summary>
-        public int ManufacturerId { get; set; }
-        public virtual Manufacturer Manufacturer { get; set; }
+        
 
         /// <summary>
         /// Nhà cung cấp
         /// </summary>
         public int VendorId { get; set; }
         public virtual Vendor Vendor { get; set; }
+
+        /// <summary>
+        /// Thương hiệu (nhà sản xuất)
+        /// </summary>
+        public int SupplierId { get; set; }
+        public virtual Supplier Supplier { get; set; }
 
         public int ProductCategoryId { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }

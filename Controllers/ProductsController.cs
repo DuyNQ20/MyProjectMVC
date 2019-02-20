@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
-using MyProject.Models;
-using MyProject.ViewModels;
-using MyProject.Mapper;
+using MyProjectMVC.Mapper;
+using MyProjectMVC.ViewModels;
 
 namespace MyProjectMVC.Models
 {
@@ -25,7 +24,7 @@ namespace MyProjectMVC.Models
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Products.Include(p => p.Manufacturer).Include(p => p.Vendor).Include(p => p.Images).Include(x => x.ProductCategory);
+            var dataContext = _context.Products.Include(p => p.Vendor).Include(p => p.Images).Include(x => x.ProductCategory).Include(x=>x.Supplier);
 
             return View(await dataContext.ToListAsync());
         }
@@ -39,7 +38,6 @@ namespace MyProjectMVC.Models
             }
 
             var product = await _context.Products
-                .Include(p => p.Manufacturer)
                 .Include(p => p.Vendor)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
@@ -55,6 +53,7 @@ namespace MyProjectMVC.Models
         {
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
             return View();
         }
 
@@ -63,16 +62,19 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] Product product)
+        public async Task<IActionResult> Create(ProductView productView)
         {
+            var product = new Product();
+            product.SaveMap(productView);
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Id", product.ManufacturerId);
-            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Id", product.VendorId);
+            ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
+            ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
             return View(product);
         }
 
@@ -90,6 +92,7 @@ namespace MyProjectMVC.Models
                 return NotFound();
             }
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name", product.ProductCategoryId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", product.VendorId);
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name", product.StatusId);
             return View(product);
@@ -107,7 +110,7 @@ namespace MyProjectMVC.Models
             {
                 return NotFound();
             }
-            product.ProductMap(productView);
+            product.Map(productView);
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -137,7 +140,6 @@ namespace MyProjectMVC.Models
             }
 
             var product = await _context.Products
-                .Include(p => p.Manufacturer)
                 .Include(p => p.Vendor)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)

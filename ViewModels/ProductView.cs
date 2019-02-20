@@ -1,10 +1,10 @@
-﻿using MyProject.Models;
+﻿using MyProjectMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyProject.ViewModels
+namespace MyProjectMVC.ViewModels
 {
     public class ProductView
     {
@@ -43,5 +43,8 @@ namespace MyProject.ViewModels
         public int ProductCategoryId { get; set; }
 
         public int StatusId { get; set; }
+
+        public int SupplierId { get; set; }
+
     }
 }
