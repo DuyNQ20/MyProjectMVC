@@ -52,6 +52,7 @@ namespace MyProjectMVC.Models
         public IActionResult Create()
         {
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
             return View();
@@ -73,9 +74,10 @@ namespace MyProjectMVC.Models
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
-            return View(product);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Edit/5

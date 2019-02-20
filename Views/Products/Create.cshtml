@@ -126,7 +126,7 @@
                             <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
                         </div>*@
                     <div class="bor">
-                        <form asp-action="Create">
+                        <form asp-action="Create" enctype="multipart/form-data">
                             @*Bên trái*@
                             <div class="col s8">
                                 <div class="row">
@@ -139,8 +139,17 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <div class="input-field col s5" style="padding: 0">
+                                            @Html.DropDownList("SupplierId")
+                                            <label style="left: 0">Thương hiệu</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <div class="input-field col s5" style="padding: 0">
                                             @Html.DropDownList("ProductCategoryId")
-                                            <label style="left: 0">Loại sản phẩm</label>
+                                            <label style="left: 0">Danh mục sản phẩm</label>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +165,7 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <label>Cấu hình</label><br />
+                                        <label style="transform: translateY(-140%);">Cấu hình</label><br />
                                         <textarea id="specifications" type="text" asp-for="Specifications"></textarea>
                                     </div>
                                 </div>
@@ -191,6 +200,7 @@
                                         <label>Trạng thái</label>
                                     </div>
                                 </div>
+
                                 <div class="row test">
                                     <div class="col s12">
                                         <input type="checkbox" class="filled-in" id="filled-in-box-3" asp-for="IsNew" />
@@ -202,7 +212,7 @@
                                 <div class="row">
                                     <br />
                                     <div class="input-field col s12">
-                                        <label>Mô tả</label> <br />
+                                        <label style="transform: translateY(-140%);">Mô tả</label> <br />
                                         <textarea id="decriptions" type="text" asp-for="Decriptions"></textarea>
                                     </div>
                                 </div>
