@@ -9,7 +9,6 @@ using CatalogService.Api.Data;
 using MyProjectMVC.Mapper;
 using MyProjectMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
-using System.IO;
 using Microsoft.Extensions.Options;
 
 namespace MyProjectMVC.Models
@@ -72,9 +71,8 @@ namespace MyProjectMVC.Models
         {
             var product = new Product();
             var listFile = new List<File>();
-
-            var path = Path.GetFullPath(Path.Combine(StorageConfiguration.Path));
-            Directory.CreateDirectory(path);
+            var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory));
+            System.IO.Directory.CreateDirectory(path);
             product.SaveMap(productView);
             
             if (ModelState.IsValid)
@@ -87,10 +85,10 @@ namespace MyProjectMVC.Models
                 foreach (var formFile in files)
                 {
                     var file = new File();
-                    var filePath = Path.GetFullPath(Path.Combine(StorageConfiguration.Path, formFile.FileName));
+                    var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, formFile.FileName));
                     if (formFile.Length > 0)
                     {
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
                         {
                             await formFile.CopyToAsync(stream);
                             file.SaveMap(formFile, product.Id);
@@ -125,7 +123,7 @@ namespace MyProjectMVC.Models
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.Include(x => x.Files).FirstOrDefaultAsync(x => x.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -142,8 +140,53 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ProductView productView)
+        public async Task<IActionResult> Edit(int id, ProductView productView, List<IFormFile> files, IFormFile thumbfile)
         {
+            var listFile = new List<File>();
+            var fileone = new File();
+            // cập nhật ảnh sản phẩm
+            if (files.Count > 0)
+            {
+                listFile = _context.Files.Where(x => x.ProductId == id & x.thumbnail == false).ToList();
+                int dem = 0;
+                foreach(var item in files)
+                {
+                    var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, item.FileName));
+                    if (item.Length > 0)
+                    {
+                        using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                        {
+                            await item.CopyToAsync(stream);
+                            listFile[dem].Path = System.IO.Path.Combine(StorageConfiguration.Path, item.FileName);
+                           
+                        }
+                    }
+                    _context.Entry(listFile[dem]).State = EntityState.Modified;
+                    dem++;
+                    if (dem > listFile.Count - 1)
+                        break;
+                    
+                }
+               
+            }
+
+            // Cập nhật thumbail
+            if (thumbfile != null)
+            {
+                fileone = await _context.Files.FirstOrDefaultAsync(x => x.ProductId == id & x.thumbnail == true);
+                
+                var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, thumbfile.FileName));
+                if (thumbfile.Length > 0)
+                {
+                    using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                    {
+                        await thumbfile.CopyToAsync(stream);
+                        fileone.Path = System.IO.Path.Combine(StorageConfiguration.Path, thumbfile.FileName);
+                    }
+                }
+                _context.Entry(fileone).State = EntityState.Modified;
+            }
+
             var product = _context.Products.Find(id);
             if (product == null)
             {
@@ -151,6 +194,8 @@ namespace MyProjectMVC.Models
             }
             product.Map(productView);
             _context.Entry(product).State = EntityState.Modified;
+           
+          
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

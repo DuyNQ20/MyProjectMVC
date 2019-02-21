@@ -83,8 +83,8 @@ function readURL(input, placeToInsertImagePreview) { // Hien thi anh khi upload
 }
 
 function CheckFileAmount(input) {
-    if (input.files.length > 4) {
-        alert("Bạn chỉ có thể upload tối đa 4 ảnh");
+    if (input.files.length > 10) {
+        alert("Bạn chỉ có thể upload tối đa 10 ảnh");
         return false;
     } else {
         return true;

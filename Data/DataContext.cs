@@ -192,7 +192,7 @@ namespace CatalogService.Api.Data
                {
                    Id = 1,
                    ProductId = 1,
-                   Url = "images/smartphone/iphonex.jpg",
+                   Path = "images\\smartphone\\iphonex.png",
                    Name = "iphonex",
                    Extention = ".png",
                    thumbnail = true,

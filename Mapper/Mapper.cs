@@ -121,6 +121,8 @@ namespace MyProjectMVC.Mapper
 
 
         // File
+        
+
         public static void SaveMap(this File destination, IFormFile source)
         {
             var now = DateTime.UtcNow;
@@ -140,10 +142,10 @@ namespace MyProjectMVC.Mapper
         {
             var now = DateTime.UtcNow;
 
-            destination.Name = source.Name;
+            destination.Name = source.FileName;
             destination.Size = source.Length;
             destination.UploadedAt = now;
-            destination.Path = StorageConfiguration.Path;
+            destination.Path = System.IO.Path.Combine(StorageConfiguration.Path, source.FileName);
             destination.thumbnail = false;
             destination.ProductId = productId;
         }

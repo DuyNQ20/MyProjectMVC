@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using Microsoft.AspNetCore.Http;
+
+
 namespace MyProjectMVC
 {
     public class StorageConfiguration
@@ -11,12 +8,23 @@ namespace MyProjectMVC
         /// <summary>
         /// thư mục gốc để upload file
         /// </summary>
-        public string StorageDirectory { get; set; }
+        public static string StorageDirectory { get; set; }
         /// <summary>
         /// Đường dẫn đến server
         /// </summary>
         public string FileServerUrl { get; set; }
 
-        public static string Path = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\" + "FileStorage";
+
+        /// <summary>
+        /// Đường dẫn tương đối file
+        /// </summary>
+        public static string Path { get; set; }
+
+        public StorageConfiguration()
+        {
+            StorageDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\", "wwwroot","images","smartphone"));
+            
+            Path = System.IO.Path.Combine("images", "smartphone"); // Tạo đường dẫn tương đối
+        }
     }
 }

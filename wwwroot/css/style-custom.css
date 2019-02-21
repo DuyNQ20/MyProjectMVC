@@ -50,3 +50,9 @@
         height: 100%;
         padding-right: 4px;
     }
+
+
+/*Cho cách chỗ hàng mới*/
+.row.test {
+    margin-top: 15px;
+}

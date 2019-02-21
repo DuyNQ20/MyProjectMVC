@@ -72,7 +72,7 @@
                                         </td>
                                         <td class="text-center">
                                             <span class="list-img">
-                                                @*<img src="~/@Url.Content(item.Files.FirstOrDefault(x=> x.Id == item.Id).Path)" />*@
+                                                <img src="@Url.Content(item.Files.FirstOrDefault(x=> x.Id == item.Id & x.thumbnail == true).Path)" />
                                             </span>
                                         </td>
                                         <td>

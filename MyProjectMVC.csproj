@@ -13,9 +13,4 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\smartphone\" />
-  </ItemGroup>
-
 </Project>
