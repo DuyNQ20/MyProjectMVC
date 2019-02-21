@@ -138,7 +138,7 @@ namespace MyProjectMVC.Mapper
         /// <param name="destination"></param>
         /// <param name="source"></param>
         /// <param name="productId">Tham thieu toi Product</param>
-        public static void SaveMap(this File destination, IFormFile source, int productId)
+        public static void SaveMap(this File destination, IFormFile source, int productId, bool thumbnail)
         {
             var now = DateTime.UtcNow;
 
@@ -146,7 +146,7 @@ namespace MyProjectMVC.Mapper
             destination.Size = source.Length;
             destination.UploadedAt = now;
             destination.Path = System.IO.Path.Combine(StorageConfiguration.Path, source.FileName);
-            destination.thumbnail = false;
+            destination.thumbnail = thumbnail;
             destination.ProductId = productId;
         }
     }

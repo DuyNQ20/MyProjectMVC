@@ -25,6 +25,43 @@ namespace MyProjectMVC.Models
             _storageConfiguration = storageConfiguration.Value;
         }
 
+        public async void AddFilesForProduct(List<IFormFile> files, int productId, bool thumbnail=false)
+        {
+            var list = new List<File>();
+            foreach (var item in files)
+            {
+                var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, item.FileName));
+                if (item.Length > 0)
+                {
+                    using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                    {
+                        await item.CopyToAsync(stream);
+                        var file = new File();
+                        if(thumbnail)
+                            file.SaveMap(item, productId, true);
+                        file.SaveMap(item, productId);
+                        list.Add(file);
+                    }
+                }
+            }
+            _context.AddRange(list);
+            await _context.SaveChangesAsync();
+        }
+
+        public bool ExistProductThumbnail(int productId)
+        {
+            var file = _context.Files.FirstOrDefaultAsync(x => x.ProductId == productId & x.thumbnail == true);
+            return file == null ? false : true;
+        }
+
+        public bool ExistProductImages(int productId)
+        {
+            var files = _context.Files.Where(x => x.ProductId == productId & x.thumbnail == false);
+            return files.Count() == 0 ? false : true;
+        }
+
+        
+
         // GET: Products
         public async Task<IActionResult> Index()
         {
