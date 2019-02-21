@@ -148,24 +148,35 @@ namespace MyProjectMVC.Models
             if (files.Count > 0)
             {
                 listFile = _context.Files.Where(x => x.ProductId == id & x.thumbnail == false).ToList();
-                int dem = 0;
-                foreach(var item in files)
+                int dem = 1;
+                int checkSoLuongFile = listFile.Count;
+                for(var i = 0; i < files.Count; i++)
                 {
-                    var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, item.FileName));
-                    if (item.Length > 0)
+                    var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, files[i].FileName));
+                    if (files[i].Length > 0)
                     {
                         using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
                         {
-                            await item.CopyToAsync(stream);
-                            listFile[dem].Path = System.IO.Path.Combine(StorageConfiguration.Path, item.FileName);
+                            await files[i].CopyToAsync(stream);
+                            if ((i+1) > checkSoLuongFile) // Nếu sản phẩm chưa có ảnh thì cho phép tạo mới
+                            {
+                                var filenew = new File();
+                                filenew.SaveMap(files[i], id);
+                                _context.Add(filenew);
+                            }
+                            else // Đã có thì chỉ cho chỉnh sửa
+                            {
+                                listFile[i].Path = System.IO.Path.Combine(StorageConfiguration.Path, files[i].FileName);
+                                _context.Entry(listFile[i]).State = EntityState.Modified;
+                            }
                            
                         }
                     }
-                    _context.Entry(listFile[dem]).State = EntityState.Modified;
-                    dem++;
-                    if (dem > listFile.Count - 1)
+                   
+                    if (dem > StorageConfiguration.MaxImageNumber) // Chỉ cho phép up tối đa là 10 ảnh
                         break;
-                    
+                    dem++;
+
                 }
                
             }
@@ -223,15 +234,10 @@ namespace MyProjectMVC.Models
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .Include(p => p.Vendor)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Products/Delete/5

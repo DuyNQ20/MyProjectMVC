@@ -20,11 +20,15 @@ namespace MyProjectMVC
         /// </summary>
         public static string Path { get; set; }
 
+        public static int MaxImageNumber { get; set; }
+
         public StorageConfiguration()
         {
             StorageDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\", "wwwroot","images","smartphone"));
             
             Path = System.IO.Path.Combine("images", "smartphone"); // Tạo đường dẫn tương đối
+
+            MaxImageNumber = 10;
         }
     }
 }

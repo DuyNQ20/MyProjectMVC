@@ -111,7 +111,15 @@
                                         <label>Hình đại diện</label>
                                         <input id="image-file" type="file" name="thumbfile" />
                                         <div class="show-image file">
-                                            <img src="@Url.Content("~/"+ @Url.Content(Model.Files.FirstOrDefault(x=> x.Id == Model.Id & x.thumbnail == true).Path))" />
+                                            @{
+                                                var image = Model.Files.FirstOrDefault(x => x.Id == Model.Id & x.thumbnail == true);
+
+                                                if (image != null)
+                                                {
+                                                    <img src="@Url.Content("~/"+image.Path)" />
+                                                }
+
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -123,10 +131,14 @@
                                         <div class="show-image files">
                                             @{
                                                 var list = Model.Files.Where(x => x.ProductId == Model.Id & x.thumbnail == false).ToList();
-                                                foreach (var item in list)
+                                                if (list.Count() > 0)
                                                 {
-                                                    <img src="@Url.Content("~/"+item.Path)" />
+                                                    foreach (var item in list)
+                                                    {
+                                                        <img src="@Url.Content("~/"+item.Path)" />
+                                                    }
                                                 }
+
                                             }
                                         </div>
 

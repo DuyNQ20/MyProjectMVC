@@ -106,3 +106,4 @@ $("#image-files").change(function () {
 });
 
 
+// Xác nhận khi xóa

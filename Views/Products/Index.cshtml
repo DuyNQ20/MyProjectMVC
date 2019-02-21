@@ -72,7 +72,15 @@
                                         </td>
                                         <td class="text-center">
                                             <span class="list-img">
-                                                <img src="@Url.Content(item.Files.FirstOrDefault(x=> x.Id == item.Id & x.thumbnail == true).Path)" />
+                                                @{
+                                                    var image = item.Files.FirstOrDefault(x => x.Id == item.Id & x.thumbnail == true);
+                                                    if (image != null)
+                                                    {
+                                                        <img src="@Url.Content("~/"+image.Path)" />
+                                                    }
+                                                        
+                                                }
+
                                             </span>
                                         </td>
                                         <td>
@@ -102,8 +110,11 @@
                                             <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"> Sửa</i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="#"><i class="fa fa-trash-o red"> Xóa</i></a>
+
+                                            <a  asp-action="Delete" asp-route-id="@item.Id" onclick = "return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');" ><i class="fa fa-trash-o red"> Xóa</i></a>
                                         </td>
+
+                                     
                                     </tr>
                                     }
 
