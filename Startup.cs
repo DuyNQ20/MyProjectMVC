@@ -32,8 +32,7 @@ namespace MyProjectMVC
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
+            //services.Configure<StorageConfiguration>(Configuration.GetSection("StorageConfiguration"));
             services
                .AddDbContext<DataContext>(options =>
                    options.UseMySql(Configuration.GetConnectionString("DefaultConnection")))
@@ -58,6 +57,7 @@ namespace MyProjectMVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            
 
             app.UseMvc(routes =>
             {

@@ -61,6 +61,7 @@ namespace MyProjectMVC.Models
         public virtual Status Status { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
-        public virtual List<Image> Images { get; set; }
+
+        public virtual List<File> Files { get; set; }
     }
 }

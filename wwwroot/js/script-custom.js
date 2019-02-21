@@ -59,3 +59,50 @@ $(document).ready(function () {
 // END Chuyển tiền sang dạng dấu phảy
 
 })
+
+
+
+/// Upload file
+
+function readURL(input, placeToInsertImagePreview) { // Hien thi anh khi upload
+
+    if (input.files) {
+        if (CheckFileAmount(input))
+        {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+       
+    }
+}
+
+function CheckFileAmount(input) {
+    if (input.files.length > 4) {
+        alert("Bạn chỉ có thể upload tối đa 4 ảnh");
+        return false;
+    } else {
+        return true;
+    }
+}
+function remoteImage(placeRemove) { // Remove ảnh khi hiển thị rồi
+
+    $(placeRemove).remove();
+}
+
+$("#image-file").change(function () {
+    remoteImage("div.show-image.file img");
+    readURL(this, "div.show-image.file");
+});
+
+$("#image-files").change(function () {
+    remoteImage("div.show-image.files img");
+    readURL(this, "div.show-image.files");
+});
+
+

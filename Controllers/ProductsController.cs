@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
 using MyProjectMVC.Mapper;
 using MyProjectMVC.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.Extensions.Options;
 
 namespace MyProjectMVC.Models
 {
@@ -15,16 +18,18 @@ namespace MyProjectMVC.Models
     public class ProductsController : Controller
     {
         private readonly DataContext _context;
+        private readonly StorageConfiguration _storageConfiguration;
 
-        public ProductsController(DataContext context)
+        public ProductsController(DataContext context, IOptions<StorageConfiguration> storageConfiguration)
         {
             _context = context;
+            _storageConfiguration = storageConfiguration.Value;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Products.Include(p => p.Vendor).Include(p => p.Images).Include(x => x.ProductCategory).Include(x=>x.Supplier);
+            var dataContext = _context.Products.Include(p => p.Vendor).Include(p => p.Files).Include(x => x.ProductCategory).Include(x => x.Supplier);
 
             return View(await dataContext.ToListAsync());
         }
@@ -63,14 +68,46 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductView productView)
+        public async Task<IActionResult> Create(ProductView productView, List<IFormFile> files)
         {
             var product = new Product();
+            var listFile = new List<File>();
+
+            var path = Path.GetFullPath(Path.Combine(StorageConfiguration.Path));
+            Directory.CreateDirectory(path);
             product.SaveMap(productView);
+            
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+
+                // Upload file
+                bool firstfile = true; // kiểm tra xem có phải file đầu tiên
+                foreach (var formFile in files)
+                {
+                    var file = new File();
+                    var filePath = Path.GetFullPath(Path.Combine(StorageConfiguration.Path, formFile.FileName));
+                    if (formFile.Length > 0)
+                    {
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await formFile.CopyToAsync(stream);
+                            file.SaveMap(formFile, product.Id);
+                            if(firstfile)
+                            {
+                                file.thumbnail = true;
+                            }
+                        }
+                    }
+                    listFile.Add(file);
+                    firstfile = false;
+                }
+               
+                // them file vao db
+                _context.AddRange(listFile);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
@@ -127,7 +164,7 @@ namespace MyProjectMVC.Models
                 return NotFound();
             }
             product.StatusId = product.StatusId == 1 ? 2 : 1;
-            
+
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

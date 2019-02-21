@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
 namespace MyProjectMVC.Mapper
 {
     public static class Mapper
@@ -115,6 +117,35 @@ namespace MyProjectMVC.Mapper
             destination.ModifiedAt = now;
             destination.Active = source.Active;
 
+        }
+
+
+        // File
+        public static void SaveMap(this File destination, IFormFile source)
+        {
+            var now = DateTime.UtcNow;
+
+            destination.Name = source.Name;
+            destination.Size = source.Length;
+            destination.UploadedAt = now;
+            destination.Path = StorageConfiguration.Path;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="destination"></param>
+        /// <param name="source"></param>
+        /// <param name="productId">Tham thieu toi Product</param>
+        public static void SaveMap(this File destination, IFormFile source, int productId)
+        {
+            var now = DateTime.UtcNow;
+
+            destination.Name = source.Name;
+            destination.Size = source.Length;
+            destination.UploadedAt = now;
+            destination.Path = StorageConfiguration.Path;
+            destination.thumbnail = false;
+            destination.ProductId = productId;
         }
     }
 }

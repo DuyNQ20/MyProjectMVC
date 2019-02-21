@@ -20,7 +20,7 @@ namespace CatalogService.Api.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comment>().ToTable("Comment");
-            modelBuilder.Entity<Image>().ToTable("Image");
+            modelBuilder.Entity<File>().ToTable("File");
             modelBuilder.Entity<Supplier>().ToTable("Supplier");
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Vendor>().ToTable("Vendor");
@@ -187,14 +187,15 @@ namespace CatalogService.Api.Data
                     ModifiedBy = "Quang Duy"
                 }
             );
-            modelBuilder.Entity<Image>().HasData(
-               new Image
+            modelBuilder.Entity<File>().HasData(
+               new File
                {
                    Id = 1,
                    ProductId = 1,
                    Url = "images/smartphone/iphonex.jpg",
                    Name = "iphonex",
                    Extention = ".png",
+                   thumbnail = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
                    ModifiedAt = DateTime.Now,
@@ -205,7 +206,7 @@ namespace CatalogService.Api.Data
         }
 
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<File> Files { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
