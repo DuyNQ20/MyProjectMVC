@@ -67,8 +67,6 @@ $(document).ready(function () {
 function readURL(input, placeToInsertImagePreview) { // Hien thi anh khi upload
 
     if (input.files) {
-        if (CheckFileAmount(input))
-        {
             var filesAmount = input.files.length;
             for (i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
@@ -77,19 +75,10 @@ function readURL(input, placeToInsertImagePreview) { // Hien thi anh khi upload
                 }
                 reader.readAsDataURL(input.files[i]);
             }
-        }
        
     }
 }
 
-function CheckFileAmount(input) {
-    if (input.files.length > 10) {
-        alert("Bạn chỉ có thể upload tối đa 10 ảnh");
-        return false;
-    } else {
-        return true;
-    }
-}
 function remoteImage(placeRemove) { // Remove ảnh khi hiển thị rồi
 
     $(placeRemove).remove();

@@ -26,13 +26,13 @@ namespace MyProjectMVC.Models
             _storageConfiguration = storageConfiguration.Value;
         }
 
-        public  void AddFilesForProduct(List<IFormFile> files, int productId, bool thumbnail=false)
+        public void AddFilesForProduct(List<IFormFile> files, int productId, bool thumbnail = false)
         {
             var list = new List<File>();
 
             var path = Path.GetFullPath(Path.Combine(StorageConfiguration.StorageDirectory));
             Directory.CreateDirectory(path);
-
+            
             foreach (var item in files)
             {
                 var filePath = Path.Combine(path, item.FileName);
@@ -43,17 +43,28 @@ namespace MyProjectMVC.Models
                     {
                         item.CopyTo(stream);
                         var file = new File();
-                        if(thumbnail)
+                        if (thumbnail)
                             file.SaveMap(item, productId, true);
                         else
                             file.SaveMap(item, productId);
                         list.Add(file);
                     }
-                   
                 }
             }
             _context.AddRange(list);
-             _context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public void UpdateFilePathsForProduct(List<IFormFile> files, int productId, bool thumbnai = false)
+        {
+            var listFile = _context.Files.Where(x => x.ProductId == productId & x.thumbnail == thumbnai).ToList();
+           
+            if (files.Count != 0)
+            {
+                _context.RemoveRange(listFile); // Xóa đi
+
+                AddFilesForProduct(files, productId, thumbnai); // thêm lại
+            }
         }
 
         public bool ExistProductThumbnail(int productId)
@@ -68,7 +79,7 @@ namespace MyProjectMVC.Models
             return files.Count() == 0 ? false : true;
         }
 
-        
+
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -119,7 +130,7 @@ namespace MyProjectMVC.Models
             //var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory));
             //System.IO.Directory.CreateDirectory(path);
             product.SaveMap(productView);
-            
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
@@ -162,64 +173,16 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ProductView productView, List<IFormFile> files, IFormFile thumbfile)
+        public async Task<IActionResult> Edit(int id, ProductView productView, List<IFormFile> files, List<IFormFile> file)
         {
-            var listFile = new List<File>();
-            var fileone = new File();
             // cập nhật ảnh sản phẩm
-            if (files.Count > 0)
-            {
-                listFile = _context.Files.Where(x => x.ProductId == id & x.thumbnail == false).ToList();
-                int dem = 1;
-                int checkSoLuongFile = listFile.Count;
-                for(var i = 0; i < files.Count; i++)
-                {
-                    var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, files[i].FileName));
-                    if (files[i].Length > 0)
-                    {
-                        using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
-                        {
-                            await files[i].CopyToAsync(stream);
-                            if ((i+1) > checkSoLuongFile) // Nếu sản phẩm chưa có ảnh thì cho phép tạo mới
-                            {
-                                var filenew = new File();
-                                filenew.SaveMap(files[i], id);
-                                _context.Add(filenew);
-                            }
-                            else // Đã có thì chỉ cho chỉnh sửa
-                            {
-                                listFile[i].Path = System.IO.Path.Combine(StorageConfiguration.Path, files[i].FileName);
-                                _context.Entry(listFile[i]).State = EntityState.Modified;
-                            }
-                           
-                        }
-                    }
-                   
-                    if (dem > StorageConfiguration.MaxImageNumber) // Chỉ cho phép up tối đa là 10 ảnh
-                        break;
-                    dem++;
-
-                }
-               
-            }
+            UpdateFilePathsForProduct(files, id);
 
             // Cập nhật thumbail
-            if (thumbfile != null)
-            {
-                fileone = await _context.Files.FirstOrDefaultAsync(x => x.ProductId == id & x.thumbnail == true);
-                
-                var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, thumbfile.FileName));
-                if (thumbfile.Length > 0)
-                {
-                    using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
-                    {
-                        await thumbfile.CopyToAsync(stream);
-                        fileone.Path = System.IO.Path.Combine(StorageConfiguration.Path, thumbfile.FileName);
-                    }
-                }
-                _context.Entry(fileone).State = EntityState.Modified;
-            }
+            UpdateFilePathsForProduct(file, id, true);
 
+
+            // Cập nhật sản phẩm
             var product = _context.Products.Find(id);
             if (product == null)
             {
@@ -227,8 +190,8 @@ namespace MyProjectMVC.Models
             }
             product.Map(productView);
             _context.Entry(product).State = EntityState.Modified;
-           
-          
+
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

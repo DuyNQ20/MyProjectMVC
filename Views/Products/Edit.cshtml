@@ -109,11 +109,10 @@
                                 <div class="row">
                                     <div class="col s12">
                                         <label>Hình đại diện</label>
-                                        <input id="image-file" type="file" name="thumbfile" />
+                                        <input id="image-file" type="file" name="file" />
                                         <div class="show-image file">
                                             @{
-                                                var image = Model.Files.FirstOrDefault(x => x.Id == Model.Id & x.thumbnail == true);
-
+                                                var image = Model.Files.FirstOrDefault(x => x.ProductId == Model.Id & x.thumbnail == true);
                                                 if (image != null)
                                                 {
                                                     <img src="@Url.Content("~/"+image.Path)" />
