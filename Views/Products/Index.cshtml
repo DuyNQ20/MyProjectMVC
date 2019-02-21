@@ -73,7 +73,7 @@
                                         <td class="text-center">
                                             <span class="list-img">
                                                 @{
-                                                    var image = item.Files.FirstOrDefault(x => x.Id == item.Id & x.thumbnail == true);
+                                                    var image = item.Files.FirstOrDefault(x => x.ProductId == item.Id & x.thumbnail == true);
                                                     if (image != null)
                                                     {
                                                         <img src="@Url.Content("~/"+image.Path)" />

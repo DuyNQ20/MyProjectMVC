@@ -10,6 +10,7 @@ using MyProjectMVC.Mapper;
 using MyProjectMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using System.IO;
 
 namespace MyProjectMVC.Models
 {
@@ -25,27 +26,34 @@ namespace MyProjectMVC.Models
             _storageConfiguration = storageConfiguration.Value;
         }
 
-        public async void AddFilesForProduct(List<IFormFile> files, int productId, bool thumbnail=false)
+        public  void AddFilesForProduct(List<IFormFile> files, int productId, bool thumbnail=false)
         {
             var list = new List<File>();
+
+            var path = Path.GetFullPath(Path.Combine(StorageConfiguration.StorageDirectory));
+            Directory.CreateDirectory(path);
+
             foreach (var item in files)
             {
-                var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, item.FileName));
+                var filePath = Path.Combine(path, item.FileName);
+
                 if (item.Length > 0)
                 {
-                    using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                    using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await item.CopyToAsync(stream);
+                        item.CopyTo(stream);
                         var file = new File();
                         if(thumbnail)
                             file.SaveMap(item, productId, true);
-                        file.SaveMap(item, productId);
+                        else
+                            file.SaveMap(item, productId);
                         list.Add(file);
                     }
+                   
                 }
             }
             _context.AddRange(list);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
         }
 
         public bool ExistProductThumbnail(int productId)
@@ -104,52 +112,29 @@ namespace MyProjectMVC.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductView productView, List<IFormFile> files)
+        public async Task<IActionResult> Create(ProductView productView, List<IFormFile> files, List<IFormFile> file)
         {
             var product = new Product();
             var listFile = new List<File>();
-            var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory));
-            System.IO.Directory.CreateDirectory(path);
+            //var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory));
+            //System.IO.Directory.CreateDirectory(path);
             product.SaveMap(productView);
             
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-
                 // Upload file
-                bool firstfile = true; // kiểm tra xem có phải file đầu tiên
-                foreach (var formFile in files)
-                {
-                    var file = new File();
-                    var filePath = System.IO.Path.GetFullPath(System.IO.Path.Combine(StorageConfiguration.StorageDirectory, formFile.FileName));
-                    if (formFile.Length > 0)
-                    {
-                        using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
-                        {
-                            await formFile.CopyToAsync(stream);
-                            file.SaveMap(formFile, product.Id);
-                            if(firstfile)
-                            {
-                                file.thumbnail = true;
-                            }
-                        }
-                    }
-                    listFile.Add(file);
-                    firstfile = false;
-                }
-               
-                // them file vao db
-                _context.AddRange(listFile);
-                await _context.SaveChangesAsync();
-
+                AddFilesForProduct(files, product.Id); // Upload image for product
+                AddFilesForProduct(file, product.Id, true); // Upload thumbnail for product
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
-            return RedirectToAction(nameof(Index));
+            return View();
+
         }
 
         // GET: Products/Edit/5

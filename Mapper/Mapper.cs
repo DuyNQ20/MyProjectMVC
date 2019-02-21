@@ -138,7 +138,7 @@ namespace MyProjectMVC.Mapper
         /// <param name="destination"></param>
         /// <param name="source"></param>
         /// <param name="productId">Tham thieu toi Product</param>
-        public static void SaveMap(this File destination, IFormFile source, int productId, bool thumbnail)
+        public static void SaveMap(this File destination, IFormFile source, int productId, bool thumbnail=false)
         {
             var now = DateTime.UtcNow;
 
