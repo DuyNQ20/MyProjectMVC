@@ -70,7 +70,7 @@ namespace MyProjectMVC.Models
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Products.Include(p => p.Vendor).Include(p => p.Files).Include(x => x.ProductCategory).Include(x => x.Supplier);
+            var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory);
 
             return View(await dataContext.ToListAsync());
         }
@@ -208,5 +208,37 @@ namespace MyProjectMVC.Models
         {
             return _context.Products.Any(e => e.Id == id);
         }
+
+        [HttpGet, Route("products/search")]
+        public async Task<IActionResult> Index([FromQuery]string query)
+        {
+            var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory).ToList();
+            var products = new List<Product>();
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                foreach (var item in dataContext)
+                {
+                    if (item.Name.Contains(query))
+                    {
+                        products.Add(item);
+                    }
+                }
+            }
+
+           
+            return products.Count == 0? View(dataContext) : View(products);
+        }
+       
+
+
+    }
+
+
+    public class search
+    {
+        public List<Product> Products { get; set; }
+        public List<ProductCategory> ProductCategory { get; set; }
+        public List<File> Files { get; set; }
     }
 }

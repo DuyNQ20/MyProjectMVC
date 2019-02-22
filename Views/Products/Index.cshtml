@@ -50,9 +50,9 @@
                         <div class="timkiem col-md-1">
                             <label>Tìm kiếm</label>
                         </div>
-                        <form class="app-search col-md-3">
-                            <input type="text" placeholder="Search..." class="form-control">
-                            <a href="#"><i class="fa fa-search"></i></a>
+                        <form class="app-search col-md-3" asp-controller="Products" asp-action="Index" method="get">
+                            <input type="text" placeholder="Search..." class="form-control" name="query">
+                            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <div class="tab-inn">
@@ -107,11 +107,11 @@
 
                                             </td>
                                             @*<td>
-                                    <span class="list-img">@item.Price.ToString("#,### VNĐ")</span>
-                                </td>
-                                <td>
-                                    <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
-                                </td>*@
+                                                    <span class="list-img">@item.Price.ToString("#,### VNĐ")</span>
+                                                </td>
+                                                <td>
+                                                    <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                                </td>*@
 
                                             <td class="text-center">
                                                 <a href="listing-edit.html"><i class="fa fa-plus-circle"> Nhập hàng</i></a>

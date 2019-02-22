@@ -75,3 +75,12 @@
         font-size: 15px;
     }
 
+       
+button.search-submit { /*Chỉnh button search*/
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    color: #7a7d84;
+    background: none;
+    border: none;
+}
