@@ -1,4 +1,4 @@
-﻿@model MyProjectMVC.Models.Product
+﻿@model MyProjectMVC.Models.ProductCategory
 
 @{
     ViewData["Title"] = "Details";
@@ -8,7 +8,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Product</h4>
+    <h4>ProductCategory</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,48 +16,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Specifications)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Specifications)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Decriptions)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Decriptions)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Inventory)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Inventory)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsNew)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsNew)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.View)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.View)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Supplier)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Supplier.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Vendor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Vendor.Id)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CreatedBy)

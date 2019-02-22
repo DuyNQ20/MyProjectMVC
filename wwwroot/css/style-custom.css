@@ -58,5 +58,20 @@
 }
 
 
-/*// Xác nhận xóa/*/
+/*chỉnh sửa nút search*/
+.inn-title.row {
+    margin: 0;
+    padding: 5px;
+}
+
+.drop-down-meta {
+    top: 99px;
+}
+.timkiem.col-md-1 {
+    transform: translateY(73%);
+    padding-right: 0;
+}
+    .timkiem.col-md-1 label {
+        font-size: 15px;
+    }
 

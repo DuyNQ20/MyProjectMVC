@@ -67,20 +67,6 @@ namespace MyProjectMVC.Models
             }
         }
 
-        public bool ExistProductThumbnail(int productId)
-        {
-            var file = _context.Files.FirstOrDefaultAsync(x => x.ProductId == productId & x.thumbnail == true);
-            return file == null ? false : true;
-        }
-
-        public bool ExistProductImages(int productId)
-        {
-            var files = _context.Files.Where(x => x.ProductId == productId & x.thumbnail == false);
-            return files.Count() == 0 ? false : true;
-        }
-
-
-
         // GET: Products
         public async Task<IActionResult> Index()
         {
@@ -88,25 +74,7 @@ namespace MyProjectMVC.Models
 
             return View(await dataContext.ToListAsync());
         }
-
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .Include(p => p.Vendor)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
+        
 
         // GET: Products/Create
         public IActionResult Create()
