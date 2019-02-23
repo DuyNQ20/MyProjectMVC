@@ -67,6 +67,44 @@ namespace MyProjectMVC.Mapper
             destination.Active = source.StatusId == 1 ? true : false;
         }
 
+
+        // Product Categories
+        public static void Map(this ProductCategory destination, ProductCategoryView source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (destination == null)
+            {
+                throw new ArgumentNullException(nameof(destination));
+            }
+
+            var now = DateTime.UtcNow;
+
+            if (destination.CreatedAt == DateTimeOffset.MinValue)
+            {
+                destination.CreatedAt = now;
+            }
+
+            destination.Name = source.Name;
+            destination.ModifiedAt = now;
+            destination.Active = source.Active;
+        }
+
+        public static void SaveMap(this ProductCategory destination, ProductCategoryView source)
+        {
+            var now = DateTime.UtcNow;
+
+            destination.Name = source.Name;
+            destination.ModifiedAt = now;
+            destination.CreatedAt = now;
+            destination.Active = source.Active;
+        }
+
+
+        // Vendor
         public static void Map(this Vendor destination, VendorView source)
         {
             if (source == null)

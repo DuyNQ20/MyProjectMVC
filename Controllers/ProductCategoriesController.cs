@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
 using MyProjectMVC.Models;
+using MyProjectMVC.ViewModels;
+using MyProjectMVC.Mapper;
 
 namespace MyProjectMVC.Controllers
 {
@@ -98,10 +100,12 @@ namespace MyProjectMVC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Id,CreatedBy,ModifiedBy,Active,CreatedAt,ModifiedAt")] ProductCategory productCategory)
+        [ValidateAntiForgeryToken]  
+        public async Task<IActionResult> Edit(int id, ProductCategoryView productCategoryView)
         {
-            if (id != productCategory.Id)
+            var productCategory = _context.ProductCategorys.Find(id);
+
+            if (productCategory == null)
             {
                 return NotFound();
             }
@@ -110,6 +114,7 @@ namespace MyProjectMVC.Controllers
             {
                 try
                 {
+                    productCategory.Map(productCategoryView);
                     _context.Update(productCategory);
                     await _context.SaveChangesAsync();
                 }
