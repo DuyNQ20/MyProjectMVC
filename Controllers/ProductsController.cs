@@ -68,13 +68,14 @@ namespace MyProjectMVC.Models
         }
 
         // GET: Products
+       
         public async Task<IActionResult> Index()
         {
             var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory);
 
             return View(await dataContext.ToListAsync());
         }
-        
+
 
         // GET: Products/Create
         public IActionResult Create()
@@ -164,7 +165,6 @@ namespace MyProjectMVC.Models
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
         public async Task<IActionResult> UpdateStatus(int? id)
         {
             var product = _context.Products.Find(id);
@@ -176,7 +176,7 @@ namespace MyProjectMVC.Models
 
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToRoute("products");
         }
 
         // GET: Products/Delete/5
@@ -225,8 +225,6 @@ namespace MyProjectMVC.Models
                     }
                 }
             }
-
-           
             return products.Count == 0? View(dataContext) : View(products);
         }
        
@@ -234,11 +232,4 @@ namespace MyProjectMVC.Models
 
     }
 
-
-    public class search
-    {
-        public List<Product> Products { get; set; }
-        public List<ProductCategory> ProductCategory { get; set; }
-        public List<File> Files { get; set; }
-    }
 }
