@@ -14,7 +14,6 @@ using System.IO;
 
 namespace MyProjectMVC.Models
 {
-
     public class ProductsController : Controller
     {
         private readonly DataContext _context;
@@ -68,7 +67,7 @@ namespace MyProjectMVC.Models
         }
 
         // GET: Products
-       
+        [HttpGet, Route("products")]
         public async Task<IActionResult> Index()
         {
             var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory);
@@ -78,6 +77,7 @@ namespace MyProjectMVC.Models
 
 
         // GET: Products/Create
+        [HttpGet, Route("products/create")]
         public IActionResult Create()
         {
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
@@ -90,7 +90,7 @@ namespace MyProjectMVC.Models
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, Route("products/create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductView productView, List<IFormFile> files, List<IFormFile> file)
         {
@@ -118,6 +118,7 @@ namespace MyProjectMVC.Models
         }
 
         // GET: Products/Edit/5
+        [HttpGet, Route("products/edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -140,7 +141,7 @@ namespace MyProjectMVC.Models
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, Route("products/edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProductView productView, List<IFormFile> files, List<IFormFile> file)
         {
@@ -164,7 +165,7 @@ namespace MyProjectMVC.Models
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [HttpGet, Route("products/update/status/{id}")]
         public async Task<IActionResult> UpdateStatus(int? id)
         {
             var product = _context.Products.Find(id);
@@ -181,6 +182,7 @@ namespace MyProjectMVC.Models
         }
 
         // GET: Products/Delete/5
+        [HttpGet, Route("products/delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -212,7 +214,7 @@ namespace MyProjectMVC.Models
                 foreach (var item in dataContext)
                 {
                     if (item.Name.ToLower().Contains(query.ToLower()))
-                    {
+                    { 
                         products.Add(item);
                     }
                 }

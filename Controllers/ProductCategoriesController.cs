@@ -22,11 +22,13 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories
+        [HttpGet, Route("products/categories")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.ProductCategorys.ToListAsync());
         }
 
+        [HttpGet, Route("products/categories/update/status/{id}")]
         public async Task<IActionResult> UpdateStatus(int? id)
         {
             var productCategory = _context.ProductCategorys.Find(id);
@@ -41,6 +43,7 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories/Create
+        [HttpGet, Route("products/categories/create")]
         public IActionResult Create()
         {
             return View();
@@ -49,7 +52,8 @@ namespace MyProjectMVC.Controllers
         // POST: ProductCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+
+        [HttpPost, Route("products/categories/create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCategoryView productCategoryView)
         {
@@ -65,6 +69,7 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories/Edit/5
+        [HttpGet, Route("products/categories/edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,8 +88,8 @@ namespace MyProjectMVC.Controllers
         // POST: ProductCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]  
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("products/categories/edit/{id}")]
         public async Task<IActionResult> Edit(int id, ProductCategoryView productCategoryView)
         {
             var productCategory = _context.ProductCategorys.Find(id);
@@ -119,6 +124,7 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories/Delete/5
+        [HttpGet, Route("products/categories/delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,7 +148,7 @@ namespace MyProjectMVC.Controllers
             return _context.ProductCategorys.Any(e => e.Id == id);
         }
 
-        [HttpGet, Route("product/categories/search")]
+        [HttpGet, Route("products/categories/search")]
         public async Task<IActionResult> Index([FromQuery]string query)
         {
             var dataContext = _context.ProductCategorys.ToList();
