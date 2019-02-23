@@ -69,8 +69,10 @@ namespace MyProjectMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id,CreatedBy,ModifiedBy,Active,CreatedAt,ModifiedAt")] ProductCategory productCategory)
+        public async Task<IActionResult> Create(ProductCategoryView productCategoryView)
         {
+            ProductCategory productCategory = new ProductCategory();
+            productCategory.Map(productCategoryView);
             if (ModelState.IsValid)
             {
                 _context.Add(productCategory);
@@ -152,18 +154,7 @@ namespace MyProjectMVC.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-        //// POST: ProductCategories/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var productCategory = await _context.ProductCategorys.FindAsync(id);
-        //    _context.ProductCategorys.Remove(productCategory);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
+        
         private bool ProductCategoryExists(int id)
         {
             return _context.ProductCategorys.Any(e => e.Id == id);

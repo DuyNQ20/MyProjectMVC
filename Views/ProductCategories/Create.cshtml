@@ -5,54 +5,71 @@
     Layout = "~/Views/Layout/AdminLayout.cshtml";
 }
 
-<h2>Create</h2>
+<div class="sb2-2">
+    <div class="sb2-2-2">
+        <ul>
+            <li>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            </li>
+            <li class="active-bre">
+                <a href="#"> Edit Listing</a>
+            </li>
+        </ul>
+    </div>
+    <div class="sb2-2-add-blog sb2-2-1">
+        <h2>Cập nhật sản phẩm</h2>
+        <p></p>
+        <p></p>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <div class="box-inn-sp">
+                    @*<div class="inn-title">
+                            <h4>Listing Information</h4>
+                            <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+                        </div>*@
+                    <div class="bor">
+                        <form asp-action="Create" enctype="multipart/form-data">
+                            <input type="hidden" asp-for="Id" />
 
-<h4>ProductCategory</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedBy" class="control-label"></label>
-                <input asp-for="ModifiedBy" class="form-control" />
-                <span asp-validation-for="ModifiedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                    </label>
+                            @*Bên trái*@
+                            <div class="col s8">
+                                <div class="row">
+                                    <div class="input-field col s12 tensp">
+                                        <input id="product-name" type="text" class="validate" asp-for="Name">
+                                        <label>Tên sản phẩm</label>
+                                    </div>
+                                </div>
+
+                                <div class="row test">
+                                    <div class="col s12">
+                                        <input type="checkbox" class="filled-in" id="filled-in-box-3" asp-for="Active" />
+                                        <label for="filled-in-box-3">Xuất bản</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col s8">
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-save"> </i> Lưu[Cập nhật]
+                                        </button>
+                                        <a asp-action="Index">
+                                            <button type="button" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-times-circle "></i> Thoát
+                                            </button>
+                                        </a>
+
+                                        @*<input type="submit" class="waves-effect waves-light btn-large " value="Submit">*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="clear: both"></div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ModifiedAt" class="control-label"></label>
-                <input asp-for="ModifiedAt" class="form-control" />
-                <span asp-validation-for="ModifiedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
