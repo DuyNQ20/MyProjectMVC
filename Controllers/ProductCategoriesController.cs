@@ -25,6 +25,19 @@ namespace MyProjectMVC.Controllers
             return View(await _context.ProductCategorys.ToListAsync());
         }
 
+        public async Task<IActionResult> UpdateStatus(int? id)
+        {
+            var productCategory = _context.ProductCategorys.Find(id);
+            if (productCategory == null)
+            {
+                return NotFound();
+            }
+            productCategory.Active = !productCategory.Active;
+            _context.Entry(productCategory).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: ProductCategories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -126,24 +139,25 @@ namespace MyProjectMVC.Controllers
 
             var productCategory = await _context.ProductCategorys
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (productCategory == null)
+            if (productCategory != null)
             {
-                return NotFound();
+                _context.ProductCategorys.Remove(productCategory);
+                await _context.SaveChangesAsync();
+                
             }
-
-            return View(productCategory);
-        }
-
-        // POST: ProductCategories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var productCategory = await _context.ProductCategorys.FindAsync(id);
-            _context.ProductCategorys.Remove(productCategory);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //// POST: ProductCategories/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var productCategory = await _context.ProductCategorys.FindAsync(id);
+        //    _context.ProductCategorys.Remove(productCategory);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool ProductCategoryExists(int id)
         {

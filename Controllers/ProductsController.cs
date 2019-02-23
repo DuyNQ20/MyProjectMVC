@@ -173,10 +173,11 @@ namespace MyProjectMVC.Models
                 return NotFound();
             }
             product.StatusId = product.StatusId == 1 ? 2 : 1;
+            product.Active = product.StatusId == 1 ? true : false;
 
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return RedirectToRoute("products");
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Delete/5
@@ -193,16 +194,7 @@ namespace MyProjectMVC.Models
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       
 
         private bool ProductExists(int id)
         {

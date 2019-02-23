@@ -42,6 +42,7 @@ namespace MyProjectMVC.Mapper
             destination.ProductCategoryId = source.ProductCategoryId;
             destination.ModifiedAt = now;
             destination.StatusId = source.StatusId;
+            destination.Active = source.StatusId==1?true:false;
         }
 
         public static void SaveMap(this Product destination, ProductView source)
@@ -63,6 +64,7 @@ namespace MyProjectMVC.Mapper
             destination.ModifiedAt = now;
             destination.CreatedAt = now;
             destination.StatusId = source.StatusId;
+            destination.Active = source.StatusId == 1 ? true : false;
         }
 
         public static void Map(this Vendor destination, VendorView source)
