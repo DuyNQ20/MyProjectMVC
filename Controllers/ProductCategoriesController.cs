@@ -40,24 +40,6 @@ namespace MyProjectMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: ProductCategories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var productCategory = await _context.ProductCategorys
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(productCategory);
-        }
-
         // GET: ProductCategories/Create
         public IActionResult Create()
         {
@@ -158,6 +140,25 @@ namespace MyProjectMVC.Controllers
         private bool ProductCategoryExists(int id)
         {
             return _context.ProductCategorys.Any(e => e.Id == id);
+        }
+
+        [HttpGet, Route("product/categories/search")]
+        public async Task<IActionResult> Index([FromQuery]string query)
+        {
+            var dataContext = _context.ProductCategorys.ToList();
+            var productCategories = new List<ProductCategory>();
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                foreach (var item in dataContext)
+                {
+                    if (item.Name.ToLower().Contains(query.ToLower()))
+                    {
+                        productCategories.Add(item);
+                    }
+                }
+            }
+            return productCategories.Count == 0 ? View(dataContext) : View(productCategories);
         }
     }
 }

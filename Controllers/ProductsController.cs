@@ -211,7 +211,7 @@ namespace MyProjectMVC.Models
             {
                 foreach (var item in dataContext)
                 {
-                    if (item.Name.Contains(query))
+                    if (item.Name.ToLower().Contains(query.ToLower()))
                     {
                         products.Add(item);
                     }
