@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
 using MyProjectMVC.Models;
+using MyProjectMVC.ViewModels;
+using MyProjectMVC.Mapper;
 
 namespace MyProjectMVC.Controllers
 {
@@ -19,53 +21,55 @@ namespace MyProjectMVC.Controllers
             _context = context;
         }
 
-        // GET: Vendors
+        // GET: ProductCategories
+        [HttpGet, Route("admin/vendor/categories")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vendors.ToListAsync());
+            return View("~/Views/Admin/Vendors/Index.cshtml", await _context.Vendors.ToListAsync());
         }
 
-        // GET: Vendors/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet, Route("admin/vendor/update/status/{id}")]
+        public async Task<IActionResult> UpdateStatus(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vendor = await _context.Vendors
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var vendor = _context.Vendors.Find(id);
             if (vendor == null)
             {
                 return NotFound();
             }
-
-            return View(vendor);
+            vendor.Active = !vendor.Active;
+            _context.Entry(vendor).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Vendors/Create
+        // GET: ProductCategories/Create
+        [HttpGet, Route("admin/vendor/create")]
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Admin/Vendors/Create.cshtml");
         }
 
-        // POST: Vendors/Create
+        // POST: ProductCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+
+        [HttpPost, Route("admin/vendor/create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Address,Email,Phone,Id,CreatedBy,ModifiedBy,Active,CreatedAt,ModifiedAt")] Vendor vendor)
+        public async Task<IActionResult> Create(VendorView vendorView)
         {
+            Vendor vendor = new Vendor();
+            vendor.Map(vendorView);
             if (ModelState.IsValid)
             {
                 _context.Add(vendor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vendor);
+            return View("~/Views/Admin/Vendors/Create.cshtml", vendor);
         }
 
-        // GET: Vendors/Edit/5
+        // GET: ProductCategories/Edit/5
+        [HttpGet, Route("admin/vendor/edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,17 +82,19 @@ namespace MyProjectMVC.Controllers
             {
                 return NotFound();
             }
-            return View(vendor);
+            return View("~/Views/Admin/Vendors/Edit.cshtml", vendor);
         }
 
-        // POST: Vendors/Edit/5
+        // POST: ProductCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Address,Email,Phone,Id,CreatedBy,ModifiedBy,Active,CreatedAt,ModifiedAt")] Vendor vendor)
+        [HttpPost, Route("admin/vendor/edit/{id}")]
+        public async Task<IActionResult> Edit(int id, VendorView vendorView)
         {
-            if (id != vendor.Id)
+            var vendor = _context.Vendors.Find(id);
+
+            if (vendor == null)
             {
                 return NotFound();
             }
@@ -97,6 +103,7 @@ namespace MyProjectMVC.Controllers
             {
                 try
                 {
+                    vendor.Map(vendorView);
                     _context.Update(vendor);
                     await _context.SaveChangesAsync();
                 }
@@ -113,10 +120,11 @@ namespace MyProjectMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(vendor);
+            return View("~/Views/Admin/Vendors/Edit.cshtml", vendor);
         }
 
-        // GET: Vendors/Delete/5
+        // GET: ProductCategories/Delete/5
+        [HttpGet, Route("admin/vendor/delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,28 +134,37 @@ namespace MyProjectMVC.Controllers
 
             var vendor = await _context.Vendors
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (vendor == null)
+            if (vendor != null)
             {
-                return NotFound();
+                _context.Vendors.Remove(vendor);
+                await _context.SaveChangesAsync();
+
             }
-
-            return View(vendor);
-        }
-
-        // POST: Vendors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var vendor = await _context.Vendors.FindAsync(id);
-            _context.Vendors.Remove(vendor);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool VendorExists(int id)
         {
             return _context.Vendors.Any(e => e.Id == id);
+        }
+
+        [HttpGet, Route("admin/vendor/search")]
+        public async Task<IActionResult> Search([FromQuery]string query)
+        {
+            var dataContext = _context.Vendors.ToList();
+            var vendor = new List<Vendor>();
+
+            if (!String.IsNullOrEmpty(query))
+            {
+                foreach (var item in dataContext)
+                {
+                    if (item.Name.ToLower().Contains(query.ToLower()))
+                    {
+                        vendor.Add(item);
+                    }
+                }
+            }
+            return vendor.Count == 0 ? View("~/Views/Admin/Vendors/Index.cshtml", dataContext) : View("~/Views/Admin/Vendors/Index.cshtml", vendor);
         }
     }
 }

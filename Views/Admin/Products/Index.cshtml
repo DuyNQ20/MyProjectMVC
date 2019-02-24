@@ -1,9 +1,10 @@
-﻿@model IEnumerable<MyProjectMVC.Models.ProductCategory>
+﻿@model IEnumerable<MyProjectMVC.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Layout/AdminLayout.cshtml";
 }
+
 
 <div class="sb2-2">
     <div class="sb2-2-2">
@@ -12,7 +13,7 @@
                 <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
             </li>
             <li class="active-bre">
-                <a href="#">Loại Sản phẩm</a>
+                <a href="#"> Sản phẩm</a>
             </li>
         </ul>
     </div>
@@ -21,7 +22,7 @@
             <div class="col-md-12">
                 <div class="box-inn-sp">
                     <div class="inn-title">
-                        <h4><i class="fa fa-bookmark"></i> Danh sách mục sản phẩm</h4>
+                        <h4><i class="fa fa-bookmark"></i> Danh sách sản phẩm</h4>
                         <a class="dropdown-button drop-down-meta" href="#" data-activates="dr-users"><i class="material-icons">more_vert</i></a>
                         <ul id="dr-users" class="dropdown-content">
                             <li>
@@ -49,7 +50,7 @@
                         <div class="timkiem col-md-1">
                             <label>Tìm kiếm</label>
                         </div>
-                        <form class="app-search col-md-3" asp-action="Index" method="get">
+                        <form class="app-search col-md-3" asp-controller="Products" asp-action="Search" method="get">
                             <input type="text" placeholder="Search..." class="form-control" name="query">
                             <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
                         </form>
@@ -60,10 +61,12 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">STT</th>
-                                        <th>Tên loại sản phẩm</th>
-                                        <th>Ngày tạo</th>
-                                        <th>Người tạo</th>
+                                        <th class="text-center">Hình</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Danh mục</th>
+                                        <th>Số lượng</th>
                                         <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">Nhập hàng</th>
                                         <th class="text-center">Sửa</th>
                                         <th class="text-center">Xóa</th>
                                     </tr>
@@ -76,17 +79,31 @@
                                             <td class="text-center">
                                                 <span class="list-img">@(i++)</span>
                                             </td>
+
+                                            <td class="text-center">
+                                                <span class="list-img">
+                                                    @{
+                                                        var image = item.Files.FirstOrDefault(x => x.ProductId == item.Id & x.thumbnail == true);
+                                                        if (image != null)
+                                                        {
+                                                            <img src="@Url.Content("~/"+image.Path)" />
+                                                        }
+
+                                                    }
+
+                                                </span>
+                                            </td>
                                             <td>
                                                 <span class="list-img">@Html.DisplayFor(modelItem => item.Name)</span>
                                             </td>
                                             <td>
-                                                <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                                <span class="list-img">@Html.DisplayFor(modelItem => item.ProductCategory.Name)</span>
                                             </td>
                                             <td>
-                                                <span class="list-img">@Html.DisplayFor(modelItem => item.CreatedBy)</span>
+                                                <span class="list-img">@Html.DisplayFor(modelItem => item.Inventory)</span>
                                             </td>
                                             <td class="text-center">
-                                                <a asp-action="UpdateStatus" asp-route-id="@item.Id"> <i class="@(@item.Active ? "fa fa-check-circle" : "fa fa-ban red")"></i></a>
+                                                <a asp-action="UpdateStatus" asp-route-id="@item.Id"> <i class="@(@item.StatusId == 1 ? "fa fa-check-circle" : "fa fa-ban red")"></i></a>
 
                                             </td>
                                             @*<td>
@@ -97,11 +114,14 @@
                                                 </td>*@
 
                                             <td class="text-center">
+                                                <a href="listing-edit.html"><i class="fa fa-plus-circle"> Nhập hàng</i></a>
+                                            </td>
+                                            <td class="text-center">
                                                 <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"> Sửa</i></a>
                                             </td>
                                             <td class="text-center">
 
-                                                <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không? Sản phẩm liên quan đến danh mục này cũng bị xóa !!');"><i class="fa fa-trash-o red"> Xóa</i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');"><i class="fa fa-trash-o red"> Xóa</i></a>
                                             </td>
 
 

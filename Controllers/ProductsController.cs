@@ -67,30 +67,30 @@ namespace MyProjectMVC.Models
         }
 
         // GET: Products
-        [HttpGet, Route("products")]
+        [HttpGet, Route("admin/products")]
         public async Task<IActionResult> Index()
         {
             var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory);
 
-            return View(await dataContext.ToListAsync());
+            return View("~/Views/Admin/Products/Index.cshtml", await dataContext.ToListAsync());
         }
 
 
         // GET: Products/Create
-        [HttpGet, Route("products/create")]
+        [HttpGet, Route("admin/products/create")]
         public IActionResult Create()
         {
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategorys, "Id", "Name");
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
-            return View();
+            return View("~/Views/Admin/Products/Create.cshtml");
         }
 
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, Route("products/create")]
+        [HttpPost, Route("admin/products/create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductView productView, List<IFormFile> files, List<IFormFile> file)
         {
@@ -113,12 +113,12 @@ namespace MyProjectMVC.Models
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name");
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name");
-            return View();
+            return View("~/Views/Admin/Products/Create.cshtml");
 
         }
 
         // GET: Products/Edit/5
-        [HttpGet, Route("products/edit/{id}")]
+        [HttpGet, Route("admin/products/edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -135,13 +135,13 @@ namespace MyProjectMVC.Models
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", product.SupplierId);
             ViewData["VendorId"] = new SelectList(_context.Vendors, "Id", "Name", product.VendorId);
             ViewData["StatusId"] = new SelectList(_context.Statuses, "Id", "Name", product.StatusId);
-            return View(product);
+            return View("~/Views/Admin/Products/Edit.cshtml",product);
         }
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, Route("products/edit/{id}")]
+        [HttpPost, Route("admin/products/edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProductView productView, List<IFormFile> files, List<IFormFile> file)
         {
@@ -165,7 +165,8 @@ namespace MyProjectMVC.Models
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        [HttpGet, Route("products/update/status/{id}")]
+
+        [HttpGet, Route("admin/products/update/status/{id}")]
         public async Task<IActionResult> UpdateStatus(int? id)
         {
             var product = _context.Products.Find(id);
@@ -182,7 +183,7 @@ namespace MyProjectMVC.Models
         }
 
         // GET: Products/Delete/5
-        [HttpGet, Route("products/delete/{id}")]
+        [HttpGet, Route("admin/products/delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -203,8 +204,8 @@ namespace MyProjectMVC.Models
             return _context.Products.Any(e => e.Id == id);
         }
 
-        [HttpGet, Route("products/search")]
-        public async Task<IActionResult> Index([FromQuery]string query)
+        [HttpGet, Route("admin/products/search")]
+        public async Task<IActionResult> Search([FromQuery]string query)
         {
             var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory).ToList();
             var products = new List<Product>();
@@ -219,7 +220,7 @@ namespace MyProjectMVC.Models
                     }
                 }
             }
-            return products.Count == 0? View(dataContext) : View(products);
+            return products.Count == 0? View("~/Views/Admin/Products/Index.cshtml", dataContext) : View("~/Views/Admin/Products/Index.cshtml", products);
         }
        
 

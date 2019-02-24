@@ -94,5 +94,9 @@ $("#image-files").change(function () {
     readURL(this, "div.show-image.files");
 });
 
-
-// Xác nhận khi xóa
+// kiểm tra hợp lệ nhập số điện thoại (vendor create)
+$('#phone-number').keypress(function (e) {
+    if (e.charCode < 48 || e.charCode > 57 || $(this).val().length > 10) { // chỉ cho phép nhập tối đa 10 số
+        return false;
+    }
+});
