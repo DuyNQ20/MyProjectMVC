@@ -12,6 +12,7 @@ using MyProjectMVC.Mapper;
 
 namespace MyProjectMVC.Controllers
 {
+    [Route("admin/products/categories")]
     public class ProductCategoriesController : Controller
     {
         private readonly DataContext _context;
@@ -22,13 +23,13 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories
-        [HttpGet, Route("admin/products/categories")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View("~/Views/Admin/Productcategories/Index.cshtml", await _context.ProductCategorys.ToListAsync());
+            return View(await _context.ProductCategorys.ToListAsync());
         }
 
-        [HttpGet, Route("admin/products/categories/update/status/{id}")]
+        [HttpGet, Route("update/status/{id}")]
         public async Task<IActionResult> UpdateStatus(int? id)
         {
             var productCategory = _context.ProductCategorys.Find(id);
@@ -43,17 +44,17 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories/Create
-        [HttpGet, Route("admin/products/categories/create")]
+        [HttpGet, Route("create")]
         public IActionResult Create()
         {
-            return View("~/Views/Admin/Productcategories/Create.cshtml");
+            return View();
         }
 
         // POST: ProductCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-        [HttpPost, Route("admin/products/categories/create")]
+        [HttpPost, Route("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCategoryView productCategoryView)
         {
@@ -65,11 +66,11 @@ namespace MyProjectMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View("~/Views/Admin/Productcategories/Create.cshtml", productCategory);
+            return View(productCategory);
         }
 
         // GET: ProductCategories/Edit/5
-        [HttpGet, Route("admin/products/categories/edit/{id}")]
+        [HttpGet, Route("edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,14 +83,14 @@ namespace MyProjectMVC.Controllers
             {
                 return NotFound();
             }
-            return View("~/Views/Admin/Productcategories/Edit.cshtml", productCategory);
+            return View(productCategory);
         }
 
         // POST: ProductCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("admin/products/categories/edit/{id}")]
+        [HttpPost, Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id, ProductCategoryView productCategoryView)
         {
             var productCategory = _context.ProductCategorys.Find(id);
@@ -120,11 +121,11 @@ namespace MyProjectMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View("~/Views/Admin/Productcategories/Edit.cshtml", productCategory);
+            return View(productCategory);
         }
 
         // GET: ProductCategories/Delete/5
-        [HttpGet, Route("admin/products/categories/delete/{id}")]
+        [HttpGet, Route("delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,7 +149,7 @@ namespace MyProjectMVC.Controllers
             return _context.ProductCategorys.Any(e => e.Id == id);
         }
 
-        [HttpGet, Route("admin/products/categories/search")]
+        [HttpGet, Route("search")]
         public async Task<IActionResult> Search([FromQuery]string query)
         {
             var dataContext = _context.ProductCategorys.ToList();
@@ -164,7 +165,7 @@ namespace MyProjectMVC.Controllers
                     }
                 }
             }
-            return productCategories.Count == 0 ? View("~/Views/Admin/Productcategories/Index.cshtml", dataContext) : View("~/Views/Admin/Productcategories/Index.cshtml", productCategories);
+            return productCategories.Count == 0 ? View("index", dataContext) : View("index", productCategories);
         }
     }
 }

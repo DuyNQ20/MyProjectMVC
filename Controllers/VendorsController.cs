@@ -12,6 +12,7 @@ using MyProjectMVC.Mapper;
 
 namespace MyProjectMVC.Controllers
 {
+    [Route("admin/vendor")]
     public class VendorsController : Controller
     {
         private readonly DataContext _context;
@@ -22,13 +23,13 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories
-        [HttpGet, Route("admin/vendor/categories")]
+        [HttpGet, Route("categories")]
         public async Task<IActionResult> Index()
         {
-            return View("~/Views/Admin/Vendors/Index.cshtml", await _context.Vendors.ToListAsync());
+            return View(await _context.Vendors.ToListAsync());
         }
 
-        [HttpGet, Route("admin/vendor/update/status/{id}")]
+        [HttpGet, Route("update/status/{id}")]
         public async Task<IActionResult> UpdateStatus(int? id)
         {
             var vendor = _context.Vendors.Find(id);
@@ -43,17 +44,17 @@ namespace MyProjectMVC.Controllers
         }
 
         // GET: ProductCategories/Create
-        [HttpGet, Route("admin/vendor/create")]
+        [HttpGet, Route("create")]
         public IActionResult Create()
         {
-            return View("~/Views/Admin/Vendors/Create.cshtml");
+            return View();
         }
 
         // POST: ProductCategories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-        [HttpPost, Route("admin/vendor/create")]
+        [HttpPost, Route("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VendorView vendorView)
         {
@@ -65,11 +66,11 @@ namespace MyProjectMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View("~/Views/Admin/Vendors/Create.cshtml", vendor);
+            return View(vendor);
         }
 
         // GET: ProductCategories/Edit/5
-        [HttpGet, Route("admin/vendor/edit/{id}")]
+        [HttpGet, Route("edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,14 +83,14 @@ namespace MyProjectMVC.Controllers
             {
                 return NotFound();
             }
-            return View("~/Views/Admin/Vendors/Edit.cshtml", vendor);
+            return View(vendor);
         }
 
         // POST: ProductCategories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("admin/vendor/edit/{id}")]
+        [HttpPost, Route("edit/{id}")]
         public async Task<IActionResult> Edit(int id, VendorView vendorView)
         {
             var vendor = _context.Vendors.Find(id);
@@ -120,11 +121,11 @@ namespace MyProjectMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View("~/Views/Admin/Vendors/Edit.cshtml", vendor);
+            return View(vendor);
         }
 
         // GET: ProductCategories/Delete/5
-        [HttpGet, Route("admin/vendor/delete/{id}")]
+        [HttpGet, Route("delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,7 +149,7 @@ namespace MyProjectMVC.Controllers
             return _context.Vendors.Any(e => e.Id == id);
         }
 
-        [HttpGet, Route("admin/vendor/search")]
+        [HttpGet, Route("search")]
         public async Task<IActionResult> Search([FromQuery]string query)
         {
             var dataContext = _context.Vendors.ToList();
@@ -164,7 +165,7 @@ namespace MyProjectMVC.Controllers
                     }
                 }
             }
-            return vendor.Count == 0 ? View("~/Views/Admin/Vendors/Index.cshtml", dataContext) : View("~/Views/Admin/Vendors/Index.cshtml", vendor);
+            return vendor.Count == 0 ? View("index", dataContext) : View("index", vendor);
         }
     }
 }
