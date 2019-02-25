@@ -1,9 +1,7 @@
 ﻿
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "HomeLayout";
 }
-
-<!DOCTYPE html>
 
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
@@ -36,7 +34,7 @@
 </head>
 <body class="header_sticky">
     <div class="boxed">
-
+        @RenderBody()
         <div class="overlay"></div>
 
         <!-- Preloader -->
@@ -6693,7 +6691,7 @@
     <script type="text/javascript" src="~/home/javascript/smoothscroll.js"></script>
     <!-- <script type="text/javascript" src="~/home/javascript/jquery-ui.js"></script> -->
     <script type="text/javascript" src="~/home/javascript/jquery.mCustomScrollbar.js"></script>
-    <script type="text/javascript" src="~/home/https://maps.googleapis.com/maps/api/js?key=AIzaSyBtRmXKclfDp20TvfQnpgXSDPjut14x5wk&amp;region=GB"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtRmXKclfDp20TvfQnpgXSDPjut14x5wk&amp;region=GB"></script>
     <script type="text/javascript" src="~/home/javascript/gmap3.min.js"></script>
     <script type="text/javascript" src="~/home/javascript/waves.min.js"></script>
     <script type="text/javascript" src="~/home/javascript/jquery.countdown.js"></script>
