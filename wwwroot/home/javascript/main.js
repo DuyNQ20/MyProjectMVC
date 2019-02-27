@@ -921,10 +921,10 @@
         var showSuggestions = function() {
             $( ".top-search form.form-search .box-search" ).each(function() {
                 $( "form.form-search .box-search input" ).on('focus', (function() {
-                    $(this).closest('.boxed').children('.overlay').css({
-                        opacity: '1',
-                        display: 'block'
-                    });
+                    //$(this).closest('.boxed').children('.overlay').css({
+                    //    opacity: '1',
+                    //    display: 'block'
+                    //});
                     $(this).parent('.box-search').children('.search-suggestions').css({
                         opacity: '1',
                         visibility: 'visible',
@@ -932,10 +932,10 @@
                     });
                 }));
                 $( "form.form-search .box-search input" ).on('blur', (function() {
-                    $(this).closest('.boxed').children('.overlay').css({
-                        opacity: '0',
-                        display: 'none'
-                    });
+                    //$(this).closest('.boxed').children('.overlay').css({
+                    //    opacity: '0',
+                    //    display: 'none'
+                    //});
                     $(this).parent('.box-search').children('.search-suggestions').css({
                         opacity: '0',
                         visibility: 'hidden',
@@ -946,10 +946,10 @@
 
             $( ".top-search.style1 form.form-search .box-search" ).each(function() {
                 $( "form.form-search .box-search input" ).on('focus', (function() {
-                    $(this).closest('.boxed').children('.overlay').css({
-                        opacity: '1',
-                        display: 'block'
-                    });
+                    //$(this).closest('.boxed').children('.overlay').css({
+                    //    opacity: '1',
+                    //    display: 'block'
+                    //});
                     $(this).parent('.box-search').children('.search-suggestions').css({
                         opacity: '1',
                         visibility: 'visible',
@@ -1201,11 +1201,16 @@
 
         var zoomImage = function() { 
             $(document).ready(function(){
-              $('#zoom').zoom();
               $('#zoom1').zoom();
               $('#zoom2').zoom();
               $('#zoom3').zoom();
               $('#zoom4').zoom();
+              $('#zoom5').zoom();
+              $('#zoom6').zoom();
+              $('#zoom7').zoom();
+              $('#zoom8').zoom();
+              $('#zoom9').zoom();
+              $('#zoom10').zoom();
             });
         }; // zoom Image
 

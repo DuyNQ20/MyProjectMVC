@@ -3,7 +3,7 @@
 }
 
 .list-img img {
-    width: 30px;
+    width: auto;
     height: 40px;
     border-radius: inherit;
 }

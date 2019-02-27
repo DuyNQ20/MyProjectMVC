@@ -19,12 +19,13 @@ namespace MyProjectMVC
         /// Đường dẫn tương đối file
         /// </summary>
         public static string Path { get; set; }
-
+        public static string ThumbPath { get; set; }
         public StorageConfiguration()
         {
             StorageDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\", "wwwroot","images","smartphone"));
             
             Path = System.IO.Path.Combine("images", "smartphone"); // Tạo đường dẫn tương đối
+            ThumbPath = "thumb";
         }
     }
 }

@@ -11,6 +11,7 @@ using MyProjectMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System.IO;
+using MyProjectMVC.Lib;
 
 namespace MyProjectMVC.Models
 {
@@ -31,8 +32,11 @@ namespace MyProjectMVC.Models
             var list = new List<File>();
 
             var path = Path.GetFullPath(Path.Combine(StorageConfiguration.StorageDirectory));
-            Directory.CreateDirectory(path);
-            
+            var thumbPath = Path.Combine(path, StorageConfiguration.ThumbPath);
+            Directory.CreateDirectory(thumbPath);
+
+            int[] sizes = { 100, 200, 300, 400, 500, 600, 1024 };
+
             foreach (var item in files)
             {
                 var filePath = Path.Combine(path, item.FileName);
@@ -46,8 +50,22 @@ namespace MyProjectMVC.Models
                         if (thumbnail)
                             file.SaveMap(item, productId, true);
                         else
+                        {
                             file.SaveMap(item, productId);
+                            var orignalImage = System.Drawing.Image.FromStream(stream);
+                            foreach (var size in sizes)
+                            {
+                                var bmp = Lib.Lib.ResizeImage(orignalImage, size);
+                                //try
+                                //{
+                                var tempBmp = Path.Combine(thumbPath, size.ToString());
+                                try { Directory.CreateDirectory(tempBmp); } catch { }
+                                tempBmp = Path.Combine(tempBmp, item.FileName);
+                                bmp.Save(tempBmp);
+                            }
+                        }
                         list.Add(file);
+                        stream.Close();
                     }
                 }
             }
@@ -58,7 +76,7 @@ namespace MyProjectMVC.Models
         public void UpdateFilePathsForProduct(List<IFormFile> files, int productId, bool thumbnai = false)
         {
             var listFile = _context.Files.Where(x => x.ProductId == productId & x.thumbnail == thumbnai).ToList();
-           
+
             if (files.Count != 0)
             {
                 _context.RemoveRange(listFile); // Xóa đi
@@ -198,7 +216,7 @@ namespace MyProjectMVC.Models
             return RedirectToAction(nameof(Index));
         }
 
-       
+
 
         private bool ProductExists(int id)
         {
@@ -216,14 +234,14 @@ namespace MyProjectMVC.Models
                 foreach (var item in dataContext)
                 {
                     if (item.Name.ToLower().Contains(query.ToLower()))
-                    { 
+                    {
                         products.Add(item);
                     }
                 }
             }
             return products.Count == 0 ? View("index", dataContext) : View("index", products);
         }
-       
+
 
 
     }

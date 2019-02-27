@@ -1,0 +1,16 @@
+﻿.product-tab ul.tab-list li {
+    font-family: Helvetica Neue,Helvetica,Arial,\\6587\6CC9\9A5B\6B63\9ED1,WenQuanYi Zen Hei,Hiragino Sans GB,\\5137\9ED1 Pro,LiHei Pro,Heiti TC,\\5FAE\8EDF\6B63\9ED1\9AD4,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+}
+
+
+/*chỉnh lại padding cho tiêu đề danh mục sản phẩm*/
+#mega-menu > .btn-mega {
+    padding-left: 66px;
+}
+#mega-menu > .btn-mega > span{
+    left: 22px;
+}
+
+.imagebox .owl-carousel .owl-item img {
+    height: 209px;
+}
