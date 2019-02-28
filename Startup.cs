@@ -32,12 +32,13 @@ namespace MyProjectMVC
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            //services.Configure<StorageConfiguration>(Configuration.GetSection("StorageConfiguration"));
+            services.Configure<StorageConfiguration>(Configuration.GetSection("StorageConfiguration"));
             services
                .AddDbContext<DataContext>(options =>
                    options.UseMySql(Configuration.GetConnectionString("DefaultConnection")))
                    .AddMvc()
                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

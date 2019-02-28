@@ -253,7 +253,7 @@
                                             var dem = 1;
                                             foreach (var image in listImage)
                                             {
-                                                <li data-thumb="@Url.Content("~/" + image.Path)">
+                                                <li data-thumb="@Url.Content("~/" + image.Url + "/100/" + image.Name)">
                                                     <a href='#' id="@Url.Content("zoom"+dem++)" class='zoom'><img src="@Url.Content("~/" + image.Path)" alt='' width='400' height='300' /></a>
                                                     <span>NEW</span>
                                                 </li>

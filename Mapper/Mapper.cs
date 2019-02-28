@@ -170,7 +170,8 @@ namespace MyProjectMVC.Mapper
             destination.Name = source.Name;
             destination.Size = source.Length;
             destination.UploadedAt = now;
-            destination.Path = StorageConfiguration.Path;
+            destination.Url = System.IO.Path.Combine(StorageConfiguration.Path);
+            destination.Path = System.IO.Path.Combine(StorageConfiguration.Path, source.FileName); ;
         }
         /// <summary>
         /// 
@@ -185,6 +186,7 @@ namespace MyProjectMVC.Mapper
             destination.Name = source.FileName;
             destination.Size = source.Length;
             destination.UploadedAt = now;
+            destination.Url = System.IO.Path.Combine(StorageConfiguration.Path);
             destination.Path = System.IO.Path.Combine(StorageConfiguration.Path, source.FileName);
             destination.thumbnail = thumbnail;
             destination.ProductId = productId;

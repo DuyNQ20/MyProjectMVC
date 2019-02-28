@@ -8,7 +8,7 @@ namespace MyProjectMVC
         /// <summary>
         /// thư mục gốc để upload file
         /// </summary>
-        public static string StorageDirectory { get; set; }
+        public string StorageDirectory { get; set; }
         /// <summary>
         /// Đường dẫn đến server
         /// </summary>
@@ -19,13 +19,10 @@ namespace MyProjectMVC
         /// Đường dẫn tương đối file
         /// </summary>
         public static string Path { get; set; }
-        public static string ThumbPath { get; set; }
+
         public StorageConfiguration()
         {
-            StorageDirectory = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\", "wwwroot","images","smartphone"));
-            
-            Path = System.IO.Path.Combine("images", "smartphone"); // Tạo đường dẫn tương đối
-            ThumbPath = "thumb";
+            Path = "images\\product";
         }
     }
 }

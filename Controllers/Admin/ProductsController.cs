@@ -31,9 +31,8 @@ namespace MyProjectMVC.Models
         {
             var list = new List<File>();
 
-            var path = Path.GetFullPath(Path.Combine(StorageConfiguration.StorageDirectory));
-            var thumbPath = Path.Combine(path, StorageConfiguration.ThumbPath);
-            Directory.CreateDirectory(thumbPath);
+            var path = Path.GetFullPath(Path.Combine(_storageConfiguration.StorageDirectory));
+            Directory.CreateDirectory(path);
 
             int[] sizes = { 100, 200, 300, 400, 500, 600, 1024 };
 
@@ -50,19 +49,18 @@ namespace MyProjectMVC.Models
                         if (thumbnail)
                             file.SaveMap(item, productId, true);
                         else
-                        {
                             file.SaveMap(item, productId);
-                            var orignalImage = System.Drawing.Image.FromStream(stream);
-                            foreach (var size in sizes)
-                            {
-                                var bmp = Lib.Lib.ResizeImage(orignalImage, size);
-                                //try
-                                //{
-                                var tempBmp = Path.Combine(thumbPath, size.ToString());
-                                try { Directory.CreateDirectory(tempBmp); } catch { }
-                                tempBmp = Path.Combine(tempBmp, item.FileName);
-                                bmp.Save(tempBmp);
-                            }
+                        
+                        // Resize ảnh
+                        var orignalImage = System.Drawing.Image.FromStream(stream);
+                        foreach (var size in sizes)
+                        {
+                            var bmp = Lib.Lib.ResizeImage(orignalImage, size);
+
+                            var tempBmp = Path.Combine(path, size.ToString());
+                            try { Directory.CreateDirectory(tempBmp); } catch { }
+                            tempBmp = Path.Combine(tempBmp, item.FileName);
+                            bmp.Save(tempBmp);
                         }
                         list.Add(file);
                         stream.Close();
