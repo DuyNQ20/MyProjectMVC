@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
 using MyProjectMVC.Models;
+using MyProjectMVC.ViewModels;
 
 namespace MyProjectMVC.Controllers.Home
 {
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly DataContext _context;
@@ -19,7 +21,20 @@ namespace MyProjectMVC.Controllers.Home
             _context = context;
         }
 
-        // GET: Home
+        [HttpGet, Route("login")]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+
+        [HttpPost, Route("login")]
+        public async Task<IActionResult> Login(UserView userView)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Username == userView.Username & x.Password == userView.Password);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var dataContext = _context.Products.Include(p => p.Files).Include(x => x.ProductCategory);
@@ -27,6 +42,7 @@ namespace MyProjectMVC.Controllers.Home
         }
 
         // GET: Home/Details/5
+        [HttpGet, Route("details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace MyProjectMVC.Models
 {
-    public class Vendor:People
+    public class Color : BaseModel
     {
+        public string Name { get; set; }
         public virtual List<Product> Products { get; set; }
     }
 }

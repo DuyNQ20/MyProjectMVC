@@ -60,8 +60,13 @@ namespace MyProjectMVC.Models
         public int StatusId { get; set; }
         public virtual Status Status { get; set; }
 
+        public int ColorId { get; set; }
+        public virtual Color Color { get; set; }
+
         public virtual List<Comment> Comments { get; set; }
 
         public virtual List<File> Files { get; set; }
+
+        public  ICollection<ProductCart> ProductCarts { get; set; }
     }
 }
