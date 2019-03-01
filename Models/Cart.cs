@@ -7,7 +7,8 @@ namespace MyProjectMVC.Models
 {
     public class Cart : BaseModel
     {
-        public virtual ICollection<ProductCart> ProductCarts { get; set; }
+        public virtual int ProductId { get; set; }
+        public Product Product { get; set; }
 
         public int UserId { get; set; }
         public virtual User User { get; set; }

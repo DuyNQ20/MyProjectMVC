@@ -19,17 +19,6 @@ namespace CatalogService.Api.Data
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProductCart>()
-         .HasKey(bc => new { bc.CartId, bc.ProductId });
-            modelBuilder.Entity<ProductCart>()
-                .HasOne(bc => bc.Cart)
-                .WithMany(b => b.ProductCarts)
-                .HasForeignKey(bc => bc.CartId);
-            modelBuilder.Entity<ProductCart>()
-                .HasOne(bc => bc.Product)
-                .WithMany(c => c.ProductCarts)
-                .HasForeignKey(bc => bc.ProductId);
-
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<File>().ToTable("File");
             modelBuilder.Entity<Supplier>().ToTable("Supplier");
@@ -273,7 +262,21 @@ namespace CatalogService.Api.Data
                    ModifiedBy = "Quang Duy"
                }
             );
-            
+
+            modelBuilder.Entity<Cart>().HasData(
+              new Cart
+              {
+                  Id = 1,
+                  ProductId = 1,
+                  UserId = 1,
+                  Active = true,                  
+                  CreatedAt = DateTime.Now,
+                  CreatedBy = "Quang Duy",
+                  ModifiedAt = DateTime.Now,
+                  ModifiedBy = "Quang Duy"
+              }
+           );
+
         }
 
         public DbSet<Comment> Comments { get; set; }
