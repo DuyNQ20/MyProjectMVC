@@ -29,13 +29,14 @@ namespace MyProjectMVC.Mapper
             {
                 destination.CreatedAt = now;
             }
-
+            destination.ColorId = 1;
             destination.Name = source.Name;
             destination.OriginalPrice = source.OriginalPrice;
             destination.SalePrice = source.SalePrice;
             destination.Specifications = source.Specifications;
             destination.Decriptions = source.Decriptions;
             destination.Inventory = source.Inventory;
+           
             destination.IsNew = source.IsNew;
             destination.VendorId = source.VendorId;
             destination.SupplierId = source.SupplierId;
@@ -47,8 +48,8 @@ namespace MyProjectMVC.Mapper
 
         public static void SaveMap(this Product destination, ProductView source)
         {
-            
 
+            destination.ColorId = 1;
             var now = DateTime.UtcNow;
 
             destination.Name = source.Name;
@@ -191,5 +192,44 @@ namespace MyProjectMVC.Mapper
             destination.thumbnail = thumbnail;
             destination.ProductId = productId;
         }
+
+        // Carts
+        public static void Map(this Cart destination, CartView source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (destination == null)
+            {
+                throw new ArgumentNullException(nameof(destination));
+            }
+
+            var now = DateTime.UtcNow;
+
+            if (destination.CreatedAt == null)
+            {
+                destination.CreatedAt = now;
+            }
+            
+            destination.UserId = source.UserId;
+            destination.ProductId = source.ProductId;
+            destination.ModifiedAt = now;
+            destination.Active = source.Active;
+        }
+
+        public static void SaveMap(this Cart destination, CartView source)
+        {
+            
+            var now = DateTime.UtcNow;
+
+            destination.UserId = source.UserId;
+            destination.ProductId = source.ProductId;
+            destination.ModifiedAt = now;
+            destination.Active = source.Active;
+        }
+
+
     }
 }

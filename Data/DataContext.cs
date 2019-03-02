@@ -221,6 +221,31 @@ namespace CatalogService.Api.Data
                }
             );
 
+            modelBuilder.Entity<Product>().HasData(
+               new Product
+               {
+                   Id = 2,
+                   Name = "Samsung X",
+                   OriginalPrice = 20000000,
+                   SalePrice = 25000000,
+                   Specifications = "Nhà sản xuất:Apple </br>Hệ điều hành: iOS 11 </br>Kích thước:	143,6 x 70,9 x 7,7 mm </br>Trọng lượng: 174g </br>Ngày giới thiệu:	13 / 09 / 2017",
+                   Decriptions = "Cuối cùng iPhone X cũng đã ra mắt trong sự kiện diễn ra rạng sáng nay (13/9) theo giờ Việt Nam. </br>Đây là sản phẩm được Apple tung ra để kỷ niệm 10 năm iPhone.",
+                   Inventory = 1000,
+                   IsNew = true,
+                   View = 500,
+                   VendorId = 1,
+                   ProductCategoryId = 1,
+                   ColorId = 1,
+                   StatusId = 1,
+                   SupplierId = 1,
+                   Active = true,
+                   CreatedAt = DateTime.Now,
+                   CreatedBy = "Quang Duy",
+                   ModifiedAt = DateTime.Now,
+                   ModifiedBy = "Quang Duy"
+               }
+            );
+
             modelBuilder.Entity<Comment>().HasData(
                new Comment
                {
@@ -270,6 +295,20 @@ namespace CatalogService.Api.Data
                   ProductId = 1,
                   UserId = 1,
                   Active = true,                  
+                  CreatedAt = DateTime.Now,
+                  CreatedBy = "Quang Duy",
+                  ModifiedAt = DateTime.Now,
+                  ModifiedBy = "Quang Duy"
+              }
+           );
+
+            modelBuilder.Entity<Cart>().HasData(
+              new Cart
+              {
+                  Id = 2,
+                  ProductId = 2,
+                  UserId = 1,
+                  Active = true,
                   CreatedAt = DateTime.Now,
                   CreatedBy = "Quang Duy",
                   ModifiedAt = DateTime.Now,

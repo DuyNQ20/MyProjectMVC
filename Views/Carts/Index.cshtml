@@ -1,0 +1,180 @@
+﻿@model IEnumerable<MyProjectMVC.Models.Cart>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<section class="flat-shop-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="flat-row-title style1">
+                    <h3>Giỏ hàng</h3>
+                </div>
+                <div class="table-cart">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá bán</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="img-product">
+                                            
+                                            @{
+                                                var image = item.Product.Files.FirstOrDefault(x => x.ProductId == item.ProductId & x.thumbnail);
+                                                if (image != null)
+                                                {
+                                                    <img src="@Url.Content("~/"+image.Path)" />
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="name-product">
+                                            <div class="row">
+                                                @item.Product.Name
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </td>
+                                    <td>
+                                        <div class="quanlity">
+                                            <span class="btn-down"></span>
+                                            <input id="@Url.Content("sp"+item.ProductId)" class="number" value="5">
+                                            <span class="btn-up"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="total">
+                                            @item.Product.SalePrice.ToString("0,0", System.Globalization.CultureInfo.CreateSpecificCulture("el-GR")) &#8363
+                                        </div>
+                                        <div class="regular">
+                                            @item.Product.OriginalPrice.ToString("0,0", System.Globalization.CultureInfo.CreateSpecificCulture("el-GR")) &#8363
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="#" title="">
+                                            <img src="~/home/images/icons/delete.png" alt="">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <div class="form-coupon">
+                        <form action="#" method="get" accept-charset="utf-8">
+                            <div class="coupon-input">
+                                <input type="text" name="coupon code" placeholder="Nhập ở đây">
+                                <button type="submit">Mã khuyến mãi</button>
+                            </div>
+                        </form>
+                    </div><!-- /.form-coupon -->
+                </div><!-- /.table-cart -->
+            </div><!-- /.col-lg-8 -->
+            <div class="col-lg-4">
+                <div class="cart-totals">
+                    <h3>Đặt hàng</h3>
+                    <form action="#" method="get" accept-charset="utf-8">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Tạm tính</td>
+                                    <td class="subtotal">
+                                        32.000.0000 &#8363
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <hr />
+                                </tr>
+                                <tr>
+                                    <td>Phí vận chuyển</td>
+                                    <td class="btn-radio">
+                                       
+                                        <div >
+                                            <label for="free-shipping">Miễn phí</label>
+                                        </div>
+                                    </td><!-- /.btn-radio -->
+                                </tr>
+                                <tr>
+                                    <td>Thành tiền</td>
+                                    <td class="price-total">32.000.0000 &#8363</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btn-cart-totals">
+                            <a href="#" class="checkout" title="">Tiến hành đặt hàng</a>
+                        </div><!-- /.btn-cart-totals -->
+                    </form><!-- /form -->
+                </div><!-- /.cart-totals -->
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-shop-cart -->
+
+<section class="flat-row flat-iconbox style3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/home/images/icons/car.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Worldwide Shipping</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/home/images/icons/order.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Order Online Service</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/home/images/icons/payment.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Payment</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="iconbox style1">
+                    <div class="box-header">
+                        <div class="image">
+                            <img src="~/home/images/icons/return.png" alt="">
+                        </div>
+                        <div class="box-title">
+                            <h3>Return 30 Days</h3>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div><!-- /.box-header -->
+                </div><!-- /.iconbox -->
+            </div><!-- /.col-lg-3 col-md-6 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-iconbox -->
