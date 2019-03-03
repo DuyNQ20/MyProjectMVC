@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "HomeLayout";
 
@@ -77,9 +79,24 @@
                                 <li class="account">
                                     <a href="~/home/#" title="">Tài khoản<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="unstyled">
-                                        <li>
-                                            <a asp-action="Login" title="">Đăng nhập</a>
-                                        </li>
+
+                                        @{
+                                            @if (SignInManager.IsSignedIn(User))
+                                            {
+                                                <li>
+                                                    <a asp-action="Login" title="">@User.Identity.Name</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a asp-action="HomeLogin" asp-controller="Account" title="">Đăng nhập</a>
+                                                </li>
+                                            }
+
+                                        }
+
+
                                         <li>
                                             <a href="~/home/wishlist.html" title="">Hàng yêu thích</a>
                                         </li>

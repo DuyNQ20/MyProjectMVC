@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CatalogService.Api.Data;
+using MyProjectMVC.Data;
 using MyProjectMVC.Models;
 using MyProjectMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -20,29 +20,6 @@ namespace MyProjectMVC.Controllers.Home
         public HomeController(DataContext context)
         {
             _context = context;
-        }
-
-        [HttpGet, Route("login")]
-        public async Task<IActionResult> Login()
-        {
-            return View();
-        }
-
-        [HttpPost, Route("login")]
-        public async Task<IActionResult> Login(IFormCollection form)
-        {
-            string username = form["username"].ToString();
-            string password = form["password"].ToString();
-            var user = _context.Users.FirstOrDefault(x => x.Username == username & x.Password == password);
-            if (user != null)
-            {
-                HttpContext.Session.SetString("_username", username);
-
-                ViewBag.Session = HttpContext.Session.GetString("_username");
-                return View();
-            }
-
-            return View();
         }
 
         [HttpGet]

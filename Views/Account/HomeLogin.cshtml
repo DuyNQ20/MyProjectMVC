@@ -1,4 +1,4 @@
-﻿@model MyProjectMVC.Models.User
+﻿@model MyProjectMVC.ViewModels.UserView
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Layout/HomeLayout.cshtml";
@@ -16,11 +16,11 @@
                             <form asp-action="Login" method="post" id="form-contact" accept-charset="utf-8">
                                 <div class="form-box">
                                     <label for="subject-contact">Tên tài khoản<span style="color: red">*</span></label>
-                                    <input type="text" name="username" asp-for="Username" placeholder="Username">
+                                    <input type="text" name="Username" placeholder="Username">
                                 </div>
                                 <div class="form-box">
                                     <label for="subject-contact">Mật khẩu<span style="color: red">*</span></label>
-                                    <input type="text" name="password" asp-for="Password" placeholder="Password">
+                                    <input type="text" name="Password" placeholder="Password">
                                 </div>
 
                                 <div class="form-box">

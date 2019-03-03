@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CatalogService.Api.Data;
+using MyProjectMVC.Data;
 using MyProjectMVC.Mapper;
 using MyProjectMVC.ViewModels;
 using Microsoft.AspNetCore.Http;
