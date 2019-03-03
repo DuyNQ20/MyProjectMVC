@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "HomeLayout";
+
 }
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
     <link rel="shortcut icon" href="~/home/favicon/favicon.png">
 
     @*custom style*@
-    <link rel="stylesheet" href="~/home/stylesheets/style-custom.css"/>
+    <link rel="stylesheet" href="~/home/stylesheets/style-custom.css" />
 </head>
 <body class="header_sticky">
     <div class="boxed">
@@ -45,7 +46,7 @@
             </div>
         </div><!-- /.preloader -->
 
-     
+
 
         <section id="header" class="header">
             <div class="header-top">
@@ -77,7 +78,7 @@
                                     <a href="~/home/#" title="">Tài khoản<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="unstyled">
                                         <li>
-                                            <a href="~/home/#" title="">Đăng nhập</a>
+                                            <a asp-action="Login" title="">Đăng nhập</a>
                                         </li>
                                         <li>
                                             <a href="~/home/wishlist.html" title="">Hàng yêu thích</a>
@@ -103,7 +104,7 @@
                                             <a href="~/home/#" title="">Dolar</a>
                                         </li>
                                     </ul><!-- /.unstyled -->
-                                </li> 
+                                </li>
                                 <li>
                                     <a href="~/home/#" title="">Tiếng Việt<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="unstyled">
@@ -165,9 +166,9 @@
                                         </div><!-- /.all-categories -->
                                     </div><!-- /.cat-wrap -->
                                     <div class="box-search">
-                                        <input type="text" name="search" placeholder="Tìm kiếm tên sản phẩm">
+                                        <input type="text" name="query" placeholder="Tìm kiếm tên sản phẩm">
                                         <span class="btn-search">
-                                            <button type="submit" class="waves-effect"><img src="~/home/images/icons/search.png" alt=""></button>
+                                            <button asp-action="Search" type="submit" class="waves-effect"><img src="~/home/images/icons/search.png" alt=""></button>
                                         </span>
 
 
@@ -944,7 +945,7 @@
                                                 <li>
                                                     <a href="~/home/index-v2.html" title=""><i class="fa fa-angle-right" aria-hidden="true"></i>Home Layout 02</a>
                                                 </li>
-                                               
+
                                             </ul><!-- /.submenu -->
                                         </li><!-- /.column-1 -->
                                         <li class="column-1">

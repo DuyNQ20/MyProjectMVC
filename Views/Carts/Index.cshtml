@@ -28,19 +28,23 @@
                                 <tr>
                                     <td>
                                         <div class="img-product">
-                                            
-                                            @{
-                                                var image = item.Product.Files.FirstOrDefault(x => x.ProductId == item.ProductId & x.thumbnail);
-                                                if (image != null)
-                                                {
-                                                    <img src="@Url.Content("~/"+image.Path)" />
-                                                }
+                                            <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Id">
+                                                @{
+                                                    var image = item.Product.Files.FirstOrDefault(x => x.ProductId == item.ProductId & x.thumbnail);
+                                                    if (image != null)
+                                                    {
+                                                        <img src="@Url.Content("~/"+image.Path)" />
+                                                    }
 
-                                            }
+                                                }
+                                            </a>
                                         </div>
                                         <div class="name-product">
                                             <div class="row">
-                                                @item.Product.Name
+                                                <a asp-action="Details"  asp-controller="Home" asp-route-id="@item.Id">
+                                                    @item.Product.Name
+                                                </a>
+                                               
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -61,7 +65,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" title="">
+                                        <a asp-action="Delete" asp-route-id="@item.Id">
                                             <img src="~/home/images/icons/delete.png" alt="">
                                         </a>
                                     </td>

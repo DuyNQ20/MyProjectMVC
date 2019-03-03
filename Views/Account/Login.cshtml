@@ -4,47 +4,48 @@
     Layout = "~/Views/Layout/HomeLayout.cshtml";
 }
 
-
-<section class="flat-contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2">
-            </div>
-            <div class="col-lg-8 col-md-12">
-                <div class="form-contact center">
-                    <div class="form-contact-header">
-                        <h3>Leave us a Message</h3>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
-                        </p>
-                    </div><!-- /.form-contact-header -->
-                    <div class="form-contact-content">
-                        <form action="#" method="get" id="form-contact" accept-charset="utf-8">
-                            <div class="form-box one-half name-contact">
-                                <label for="name-contact">First name*</label>
-                                <input type="text" id="name-contact" name="name-contact" placeholder="Ali">
-                            </div>
-                            <div class="form-box one-half password-contact">
-                                <label for="password-contact">Last name*</label>
-                                <input type="text" id="password-contact" name="password-contact" placeholder="Ali">
-                            </div>
-                            <div class="form-box">
-                                <label for="subject-contact">Subject</label>
-                                <input type="text" id="subject-contact" name="subject-contact" placeholder="Ali">
-                            </div>
-                            <div class="form-box">
-                                <label for="comment-contact">Comment</label>
-                                <textarea id="comment-contact"></textarea>
-                            </div>
-                            <div class="form-box">
-                                <button type="submit" class="contact">Send</button>
-                            </div>
-                        </form>
-                    </div><!-- /.form-contact-content -->
-                </div><!-- /.form-contact center -->
-            </div><!-- /.col-lg-8 col-md-12 -->
-            <div class="col-lg-2">
-            </div>
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</section><!-- /.flat-contact -->
+<form action="Login" asp-controller="Account" method="post">
+    <section class="flat-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="form-contact center">
+                        <div class="form-contact-header">
+                            <h3>Leave us a Message</h3>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                            </p>
+                        </div><!-- /.form-contact-header -->
+                        <div class="form-contact-content">
+                            <form action="#" method="get" id="form-contact" accept-charset="utf-8">
+                                <div class="form-box one-half name-contact">
+                                    <label for="name-contact">First name*</label>
+                                    <input type="text" id="name-contact" name="name-contact" placeholder="Ali">
+                                </div>
+                                <div class="form-box one-half password-contact">
+                                    <label for="password-contact">Last name*</label>
+                                    <input type="text" id="password-contact" name="password-contact" placeholder="Ali">
+                                </div>
+                                <div class="form-box">
+                                    <label for="subject-contact">Subject</label>
+                                    <input type="text" id="subject-contact" name="subject-contact" placeholder="Ali">
+                                </div>
+                                <div class="form-box">
+                                    <label for="comment-contact">Comment</label>
+                                    <textarea id="comment-contact"></textarea>
+                                </div>
+                                <div class="form-box">
+                                    <button type="submit" class="contact">Send</button>
+                                </div>
+                            </form>
+                        </div><!-- /.form-contact-content -->
+                    </div><!-- /.form-contact center -->
+                </div><!-- /.col-lg-8 col-md-12 -->
+                <div class="col-lg-2">
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.flat-contact -->
+</form>

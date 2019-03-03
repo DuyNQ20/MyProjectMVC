@@ -138,28 +138,17 @@ namespace MyProjectMVC.Controllers
                 return NotFound();
             }
 
-            var cart = await _context.Carts
-                .Include(c => c.Product)
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var cart = await _context.Carts.FindAsync(id);
             if (cart == null)
             {
                 return NotFound();
             }
-
-            return View(cart);
-        }
-
-        // POST: Carts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var cart = await _context.Carts.FindAsync(id);
             _context.Carts.Remove(cart);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+      
 
         private bool CartExists(int id)
         {

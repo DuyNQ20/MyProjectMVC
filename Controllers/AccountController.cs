@@ -7,24 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatalogService.Api.Data;
 using MyProjectMVC.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MyProjectMVC.Controllers
 {
     public class AccountController : Controller
     {
         private readonly DataContext _context;
-
+        public static User userClient;
         public AccountController(DataContext context)
         {
             _context = context;
         }
         
-        [Route("login")]
-        public async Task<IActionResult> Login()
-        {
-            var dataContext = _context.Users.Include(u => u.Role);
-            return View(await dataContext.ToListAsync());
-        }
+        
 
 
         // GET: Account
