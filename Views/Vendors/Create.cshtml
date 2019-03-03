@@ -1,0 +1,93 @@
+﻿@model MyProjectMVC.Models.Vendor
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<div class="sb2-2">
+    <div class="sb2-2-2">
+        <ul>
+            <li>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            </li>
+            <li class="active-bre">
+                <a href="#"> Edit Listing</a>
+            </li>
+        </ul>
+    </div>
+    <div class="sb2-2-add-blog sb2-2-1">
+        <h2>Thêm mới sản phẩm</h2>
+        <p></p>
+        <p></p>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <div class="box-inn-sp">
+                    @*<div class="inn-title">
+                            <h4>Listing Information</h4>
+                            <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+                        </div>*@
+                    <div class="bor">
+                        <form asp-action="Create" enctype="multipart/form-data">
+                            @*Bên trái*@
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12 tensp">
+                                        <input id="product-name" type="text" class="validate" asp-for="Name">
+                                        <label>Tên nhà cung cấp</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 tensp">
+                                        <input id="phone-number" type="text" class="validate " asp-for="Phone">
+                                        <label>Số điện thoại</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 tensp">
+                                        <input id="product-name" type="text" class="validate" asp-for="Email">
+                                        <label>Email</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 tensp">
+                                        <input id="product-name" type="text" class="validate" asp-for="Address">
+                                        <label>Địa chỉ</label>
+                                    </div>
+                                </div>
+                                <div class="row test">
+                                    <div class="col s12">
+                                        <input type="checkbox" class="filled-in" id="filled-in-box-3" asp-for="Active" />
+                                        <label for="filled-in-box-3">Xuất bản</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col s8">
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-save"> </i> Lưu[Cập nhật]
+                                        </button>
+                                        <a asp-action="Index">
+                                            <button type="button" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-times-circle "></i> Thoát
+                                            </button>
+                                        </a>
+                                        @*<input type="submit" class="waves-effect waves-light btn-large " value="Submit">*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="clear: both"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

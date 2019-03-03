@@ -1,4 +1,4 @@
-﻿@model MyProject.Models.Product
+﻿@model MyProjectMVC.Models.Product
 
 @{
     ViewData["Title"] = "Delete";
@@ -17,12 +17,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Specifications)
@@ -54,17 +48,12 @@
         <dd>
             @Html.DisplayFor(model => model.View)
         </dd>
+       
         <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
+            @Html.DisplayNameFor(model => model.Supplier)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Manufacturer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Manufacturer.Id)
+            @Html.DisplayFor(model => model.Supplier.Id)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Vendor)

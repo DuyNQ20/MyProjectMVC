@@ -1,0 +1,87 @@
+﻿.product-tab ul.tab-list li,
+.product-detail-bar li,
+.sale, section.flat-shop-cart,
+section.flat-shop-cart h3, section.flat-shop-cart table,
+.table-cart tr td .total, .table-cart tr td .price,
+.cart-totals table tr td.subtotal,
+.cart-totals table tr td.price-total 
+{
+    font-family: Helvetica Neue,Helvetica,Arial,\\6587\6CC9\9A5B\6B63\9ED1,WenQuanYi Zen Hei,Hiragino Sans GB,\\5137\9ED1 Pro,LiHei Pro,Heiti TC,\\5FAE\8EDF\6B63\9ED1\9AD4,Microsoft JhengHei UI,Microsoft JhengHei,sans-serif;
+}
+   
+
+/*chỉnh lại padding cho tiêu đề danh mục sản phẩm*/
+#mega-menu > .btn-mega {
+    padding-left: 66px;
+}
+#mega-menu > .btn-mega > span{
+    left: 22px;
+}
+
+.imagebox .owl-carousel .owl-item img {
+    height: 209px;
+}
+
+/*chỉnh lại khoảng cách ở phần mô tả sản phẩm*/
+.col-md-12 p {
+    margin-bottom: 1rem;
+}
+.col-md-12 strong, b, p{
+    font-weight: bold;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+
+/*chỉnh lại border cho input số lượng sản phẩm ở chi tiết sản phẩm*/
+.quanlity input {
+    border-radius: 30px;
+}
+
+/*chỉnh lại chữ menu không cách*/
+#mainnav > ul.menu {
+    word-spacing: unset;
+}
+
+
+/*chỉnh kích thước form login*/
+#form-contact .form-box button {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 45px;
+}
+
+
+/*chỉnh kích thước btn số lượng sản phẩm strong giỏ hàng*/
+.table-cart tr td .quanlity input {
+    box-shadow: none;
+    color: #727272;
+    border: 2px solid #e5e5e5;
+}
+.table-cart tr td .quanlity input {
+    width: 70%;
+}
+
+.table-cart tr td .quanlity span.btn-down {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10%;
+}
+
+.table-cart tr td .quanlity span.btn-up {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 37%;
+}
+
+/*chỉnh chiều rộng cột sản phẩm*/
+.table-cart tr td:nth-child(1){
+    width: 55%;
+}
+.table-cart tr td:nth-child(3) {
+    width: 16%;
+}
+.table-cart tr td:nth-child(2) {
+    width: 22%;
+}
+.name-product {
+    width: 200px;
+}

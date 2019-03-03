@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyProject.Models.Product>
+﻿@model IEnumerable<MyProjectMVC.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,10 +10,10 @@
     <div class="sb2-2-2">
         <ul>
             <li>
-                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
             </li>
             <li class="active-bre">
-                <a href="#"> Ui Form</a>
+                <a href="#"> Sản phẩm</a>
             </li>
         </ul>
     </div>
@@ -22,22 +22,21 @@
             <div class="col-md-12">
                 <div class="box-inn-sp">
                     <div class="inn-title">
-                        <h4>Listing All</h4>
-                        <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+                        <h4><i class="fa fa-bookmark"></i> Danh sách sản phẩm</h4>
                         <a class="dropdown-button drop-down-meta" href="#" data-activates="dr-users"><i class="material-icons">more_vert</i></a>
                         <ul id="dr-users" class="dropdown-content">
                             <li>
-                                <a href="#!">Add New</a>
+                                <a asp-action="Create">Thêm mới</a>
                             </li>
                             <li>
-                                <a href="#!">Edit</a>
+                                <a href="#!">Sửa</a>
                             </li>
                             <li>
-                                <a href="#!">Update</a>
+                                <a href="#!">Cập nhật</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#!"><i class="material-icons">delete</i>Delete</a>
+                                <a href="#!"><i class="material-icons">delete</i>Xóa</a>
                             </li>
                             <li>
                                 <a href="#!"><i class="material-icons">subject</i>View All</a>
@@ -47,56 +46,86 @@
                         <!-- Dropdown Structure -->
 
                     </div>
+                    <div class="inn-title row">
+                        <div class="timkiem col-md-1">
+                            <label>Tìm kiếm</label>
+                        </div>
+                        <form class="app-search col-md-3" asp-controller="Products" asp-action="Search" method="get">
+                            <input type="text" placeholder="Search..." class="form-control" name="query">
+                            <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
                     <div class="tab-inn">
                         <div class="table-responsive table-desi">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Tên</th>
-                                        <th>Đơn giá</th>
-                                        <th>Ngày tạo</th>
-                                        <th>Người tạo</th>
-                                        <th>View</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th class="text-center">STT</th>
+                                        <th class="text-center">Hình</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Danh mục</th>
+                                        <th>Số lượng</th>
+                                        <th class="text-center">Trạng thái</th>
+                                        <th class="text-center">Nhập hàng</th>
+                                        <th class="text-center">Sửa</th>
+                                        <th class="text-center">Xóa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @{ var i = 1;}
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        <td>
-                                            <span class="list-img">@item.Id</span>
-                                        </td>
-                                        <td>
-                                            <span class="list-img">
-                                                <img src="~/images/smartphone/iphonex.png" />
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span class="list-img">@Html.DisplayFor(modelItem => item.Name)</span>
-                                        </td>
-                                        <td>
-                                            <span class="list-img">@Html.DisplayFor(modelItem => item.Price)</span>
-                                        </td>
-                                        <td>
-                                            <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
-                                        </td>
-                                        <td>
-                                            <span class="list-img">@Html.DisplayFor(modelItem => item.CreatedBy)</span>
-                                        </td>
-                                        <td>
-                                            <a href="listing-edit.html"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="listing-edit.html"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <span class="list-img">@(i++)</span>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <span class="list-img">
+                                                    @{
+                                                        var image = item.Files.FirstOrDefault(x => x.ProductId == item.Id & x.thumbnail == true);
+                                                        if (image != null)
+                                                        {
+                                                            <img src="@Url.Content("~/"+image.Path)" />
+                                                        }
+
+                                                    }
+
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="list-img">@Html.DisplayFor(modelItem => item.Name)</span>
+                                            </td>
+                                            <td>
+                                                <span class="list-img">@Html.DisplayFor(modelItem => item.ProductCategory.Name)</span>
+                                            </td>
+                                            <td>
+                                                <span class="list-img">@Html.DisplayFor(modelItem => item.Inventory)</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <a asp-action="UpdateStatus" asp-route-id="@item.Id"> <i class="@(@item.StatusId == 1 ? "fa fa-check-circle" : "fa fa-ban red")"></i></a>
+
+                                            </td>
+                                            @*<td>
+                                                    <span class="list-img">@item.Price.ToString("#,### VNĐ")</span>
+                                                </td>
+                                                <td>
+                                                    <span class="list-img">@item.CreatedAt.ToString("dd/MM/yyyy")</span>
+                                                </td>*@
+
+                                            <td class="text-center">
+                                                <a href="listing-edit.html"><i class="fa fa-plus-circle"> Nhập hàng</i></a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"> Sửa</i></a>
+                                            </td>
+                                            <td class="text-center">
+
+                                                <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');"><i class="fa fa-trash-o red"> Xóa</i></a>
+                                            </td>
+
+
+                                        </tr>
                                     }
 
 
