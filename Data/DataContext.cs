@@ -4,9 +4,9 @@ using MyProjectMVC.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace CatalogService.Api.Data
+namespace MyProjectMVC.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User, Role, int>
     {
         private DbContextOptions<DataContext> Options { get; }
 
@@ -21,6 +21,8 @@ namespace CatalogService.Api.Data
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder); // để k bị lỗi primary key IdentityUserLogin table
+
             modelBuilder.Entity<Comment>().ToTable("Comment");
             modelBuilder.Entity<File>().ToTable("File");
             modelBuilder.Entity<Supplier>().ToTable("Supplier");
@@ -29,8 +31,19 @@ namespace CatalogService.Api.Data
             modelBuilder.Entity<ProductCategory>().ToTable("ProductCategory");
             modelBuilder.Entity<Status>().ToTable("Status");
             modelBuilder.Entity<Color>().ToTable("Color");
-            modelBuilder.Entity<User>().ToTable("User");
+            // modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<Cart>().ToTable("Cart");
+            modelBuilder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaim");
+            modelBuilder.Entity<Role>().ToTable("Role").HasIndex(p=>p.NormalizedName).IsUnique(false);
+            modelBuilder.Entity<IdentityUserClaim<int>>().ToTable("UserClaim");
+            modelBuilder.Entity<IdentityUserLogin<int>>().ToTable("UserLogin");
+            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UserRole");
+            //modelBuilder.Entity<User>().ToTable("Users").Property(p => p.Id).HasColumnName("UserId");
+            modelBuilder.Entity<User>().ToTable("User").HasIndex(p => p.NormalizedUserName).IsUnique(false);
+            modelBuilder.Entity<IdentityUserToken<int>>().ToTable("UserTocken");
+
+
+
 
             modelBuilder.Entity<Supplier>().HasData(
                 new Supplier
@@ -92,7 +105,7 @@ namespace CatalogService.Api.Data
                new ProductCategory
                {
                    Id = 1,
-                   Name = "Điện thoại",                   
+                   Name = "Điện thoại",
                    Active = true,
                    CreatedAt = DateTime.Now,
                    CreatedBy = "Quang Duy",
@@ -146,34 +159,21 @@ namespace CatalogService.Api.Data
             new Role
             {
                 Id = 1,
-                Name = "Admin",
-                Active = true,
-                CreatedAt = DateTime.Now,
-                CreatedBy = "Quang Duy",
-                ModifiedAt = DateTime.Now,
-                ModifiedBy = "Quang Duy"
+                Name = "Admin"
+
             }
          );
             modelBuilder.Entity<User>().HasData(
               new User
               {
                   Id = 1,
-                  Name = "Xuất bản",
-                  Address = "Hà Nội",
-                  Email = "user@gmail.com",
-                  Phone = "0987654321",
-                  Username = "quangduy",
-                  Password = "123456",
-                  RoleId = 1,
-                  Active = true,
-                  CreatedAt = DateTime.Now,
-                  CreatedBy = "Quang Duy",
-                  ModifiedAt = DateTime.Now,
-                  ModifiedBy = "Quang Duy"
+                  Email = "quangduy@gmail.com",
+                  UserName = "test",
+                  PasswordHash = "123"
               }
            );
 
-          
+
 
             modelBuilder.Entity<Color>().HasData(
              new Color
@@ -296,7 +296,7 @@ namespace CatalogService.Api.Data
                   Id = 1,
                   ProductId = 1,
                   UserId = 1,
-                  Active = true,                  
+                  Active = true,
                   CreatedAt = DateTime.Now,
                   CreatedBy = "Quang Duy",
                   ModifiedAt = DateTime.Now,
@@ -328,7 +328,11 @@ namespace CatalogService.Api.Data
         public DbSet<ProductCategory> ProductCategorys { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Color> Colors { get; set; }
-        public DbSet<User> Users { get; set; }
+        public new DbSet<User> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public new DbSet<Role> Roles { get; set; }
+
+
+
     }
 }
